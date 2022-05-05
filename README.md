@@ -6,3 +6,4 @@ A competive version of Wordle created for our ELEN4010 group lab.
 - Michael Goldman
 - Jamie Benater
 - Aiden Smith
+- Rachel Edelstein
