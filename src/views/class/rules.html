@@ -3,46 +3,110 @@
     <head>
         <title>Rule Page</title>
         <meta charset="utf-8" />
+        <script defer src="rules.js"></script>
+        <link rel="stylesheet" href="/cdn/css/bootstrap.min.css">
     </head>
     <body>
-        <h1>How To Play</h1>
-        <div>
-        <h2>Single Player</h2>
-        <p> -The goal of wordie is to guess the correct 5-letter word.
-            <br>
-            -The user will have 6 chances to guess the word.
-            <br>
-            -Type in the word on your keyboard or use the one onscreen
-            <br>
-            and hit enter.
-            <br
-            -When the word is entered the tiles will change colour to show how 
-            <br>
-            close the word is to the correct one.
-            <br>
-            -A green tile means the letter is in the word and in the correct position
-            <br>
-            -A yellow tiles means the letter is in the word but in the wrong position.
-        </p>
+        <style>
+            .my-heading-row{
+                background-color: grey;
+                width: 400px   
+            }
+            .my-single-row{
+                background-color: green;
+                width: 400px
+            }
+            .my-multi-row{
+                background-color: yellow;
+                width: 400px
+            }
+            .my-normal-row{
+                background-color: whitesmoke;
+                width: 400px
+            }
+        </style> 
+       <div class="container"> 
+           <!-- put in fluid to change with screen size -->
+           <div class="row  my-heading-row"><h1>How To Play</h1>
+           <!-- <div class="col justify-content-center"><h1>How To Play</h1></div> -->
         </div>
-        
-        <div>
-        <h2>Multiplayer</h2>
-        -The rules of playing are the same as single player.
-        <br>
-        -Multiplayer mode has 2 different options available.
-        <br>
-        -1)multiple players each guess a random word provided by the computer 
-        <br> 
-         and the first person to guess the word within the 6 chances will win.
-        <br>
-        -2)1 player will choose the word to guess and the rest of the players will 
-        <br>
-        guess the word.This requires atleast 3 players to play.
+           <div class="row my-single-row"><h2>Single Player</h2></div>
+           <div class="row my-normal-row">
+                <p> -The goal of wordie is to guess the correct 5-letter word.
+                    <br>
+                    -The user will have 6 chances to guess the word.
+                    <br>
+                    -Type in the word on your keyboard or use the one onscreen
+                    <br>
+                    and hit enter.
+                    <br>
+                    -When the word is entered the tiles will change colour to show how 
+                    <br>
+                    close the word is to the correct one.
+                    <br>
+                    -A green tile means the letter is in the word and in the correct position
+                    <br>
+                    -A yellow tiles means the letter is in the word but in the wrong position.
+                </p>
+           </div>
+           <div class="row my-multi-row"> <h2>Multiplayer</h2></div>
+           <div class="row my-normal-row">
+                -The rules of playing are the same as single player.
+                <br>
+                -Multiplayer mode has 2 different options available.
+                <br>
+                -1)multiple players each guess a random word provided by the computer 
+                <br> 
+                 and the first person to guess the word within the 6 chances will win.
+                <br>
+                -2)1 player will choose the word to guess and the rest of the players will 
+                <br>
+                guess the word.This requires atleast 3 players to play.
+                
+            </div>
+            <br>
         </div> 
-        <br>
-        <div>
         
+        <!-- <style>
+            .my-custom-row{
+                background-color: bisque;
+                height: 400px
+            }
+        </style>
+
+        <div class="container">
+            <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-2">Col One</div>
+            <div class="col-sm-12 col-md-6 col-lg-8">Col Two</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 order-md-2">Col One</div>
+                <div class="col-sm-6 order-md-1">Col Two</div>
+                </div>
+
+            <div class="row">
+                <div class="col-sm-4 offset-2">Col One</div>
+                <div class="col-sm-4 offset-1">Col Two</div>
+                </div>
+            <div class="row my-custom-row justify-content-center  align-items-center"> -->
+                 <!-- Justify-content -start ,end -->
+                 <!-- Justify-content-around , between, evenly -->
+
+                <!-- <div class="col-sm-4 ">
+                    <div class="p-3 border bg-light">
+                    Col One
+                    </div>
+                </div>
+                <div class="col-sm-4 ">
+                    <div class="p-3 border bg-light">
+                    Col Two
+                    </div>
+                </div>
+            </div>
+        </div> -->
+       
+        <div>
+            <button class="button btn-light" type="submit">Return</button>
         </div>
     </body>
 </html>
