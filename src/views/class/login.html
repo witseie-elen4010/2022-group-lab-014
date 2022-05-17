@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Login page</title>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" href="/cdn/css/bootstrap.min.css">
-    </head>
-    <body>
-        <h1>Welcome to Wordie!</h1>
-        <h3>Please enter your username below</h3>
+
+<head>
+    <title>Login page</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/cdn/css/bootstrap.min.css">
+</head>
+
+<body>
+    <h1>Welcome to Wordie!</h1>
+    <h3>Please enter your username below</h3>
+    <form action="/">
         <div>
-            <input type="text">
+            <input type="text" id="user" placeholder="Username"/>
         </div>
         <div>
-            <button class="btn btn-primary" type="Submit">Enter</button>
+            <button class="btn btn-primary" type="Submit" id="enter">Enter</button>
         </div>
-    </body>
+    </form>
+    <script src="/cdn/scripts/login.js"></script>
+</body>
+
 </html>
