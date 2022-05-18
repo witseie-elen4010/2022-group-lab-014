@@ -4,7 +4,7 @@ const app = express()
 const mainRouter = require('./mainRoutes.js')
 
 app.use('/', mainRouter)
-app.use('/cdn', express.static('public'));
+app.use('/cdn', express.static('public'))
 
 const port = 3000
 app.listen(port)

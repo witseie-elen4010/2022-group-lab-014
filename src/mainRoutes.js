@@ -21,8 +21,5 @@ mainRouter.get('/multiplayer', function (req, res) {
 mainRouter.get('/rules', function (req, res) {
     res.sendFile(path.join(__dirname, 'views', 'class', 'rules.html'))
 })
-mainRouter.get('/test', function (req, res) {
-    res.sendFile(path.join(__dirname, 'views', 'class', 'test.html'))
-})
 
 module.exports = mainRouter
