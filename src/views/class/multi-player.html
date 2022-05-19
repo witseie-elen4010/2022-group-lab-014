@@ -1,10 +1,62 @@
-<head>
-    <title>Multiplayer-mode</title>
-    <meta charset="utf-8" />
-    <script defer src="multi-player.js"></script>
-    </head>
-    <body>
-    <h1><center>Multiplayer:</center> </h1>
-    <button type="button" id="startMultiPlayerGame">Start Game</button>
-    </body>
-    </html 
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Multi-Player-mode</title>
+      <link rel="stylesheet" href="/cdn/css/bootstrap.min.css">
+      
+  </head>
+  <body>
+    <div id="container">
+
+      </div>
+    <h1>Multi Player Mode</h1>
+    <style>
+
+        body{
+          background-color: cornflowerblue;
+        }
+
+        h1{
+          position: absolute;
+          left:100px;
+          top:50px;
+          color:blue;
+        }
+
+        #MultiPlayerGame {
+          position: absolute;
+          left:100px;
+          top:120px;
+        }
+        :root {
+          --grid-col: 1;
+          --grid-row: 1;
+        }
+        .gameGrid-item{
+          padding: 10px;
+          height: 60px;
+          width:60px;
+          color: white;
+          border: 3px solid white
+        }
+        .cell {
+          border: 1px solid white;
+        }
+        #container {
+          height:360px;
+          width:300px;
+          display: grid;
+          grid-gap: 3px;
+          margin:auto;
+          grid-template-rows: repeat(var(--grid-row), 1fr);
+          grid-template-columns: repeat(var(--grid-col), 1fr);
+}
+
+
+    </style>
+  <button type="button1" id="MultiPlayerGame">Start Game</button> 
+  <script src="/cdn/scripts/multi-player.js"></script>
+  </body>
+</html>

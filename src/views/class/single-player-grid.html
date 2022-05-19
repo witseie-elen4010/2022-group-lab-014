@@ -13,22 +13,8 @@
       </div>
     <h1>Single Player Mode</h1>
     <style>
-
-        body{
-          background-color: cornflowerblue;
-        }
-
         h1{
-          position: absolute;
-          left:100px;
-          top:50px;
-          color:blue;
-        }
-
-        #startSingleGame {
-          position: absolute;
-          left:100px;
-          top:120px;
+            color:blue;
         }
         :root {
           --grid-col: 1;
@@ -36,27 +22,24 @@
         }
         .gameGrid-item{
           padding: 10px;
-          height: 60px;
-          width:60px;
-          color: white;
-          border: 3px solid white
+          height: 80px;
+          width:80px;
+          border: 3px solid grey;
+          text-align: center;
         }
         .cell {
-          border: 1px solid white;
+          border: 1px solid black;
         }
         #container {
-          height:360px;
-          width:300px;
+          height:480px;
+          width:400px;
           display: grid;
           grid-gap: 3px;
-          margin:auto;
           grid-template-rows: repeat(var(--grid-row), 1fr);
           grid-template-columns: repeat(var(--grid-col), 1fr);
 }
 
-
     </style>
-  <button type="button" id="startSingleGame">Start Game</button> 
-  <script src="/cdn/scripts/single-player.js"></script>
+  <script src="/cdn/scripts/single-player-html.js"></script>
   </body>
 </html>
