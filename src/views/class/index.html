@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"> <head>
+<title>Welcome Page</title>
+<meta charset="utf-8" />
+<!-- defer means that the JS code is executed after the DOM is fully built -->
+ <script defer src="index.js"></script>
+ <link rel="stylesheet" href="/cdn/css/bootstrap.min.css">
+</head>
+ <body class="bg-info text-white">
+<h1 class=" display-1 position-relative text-white text-center" id="heading">Wordie</h1>
+
+<form action="/single" method="get">
+<div class="d-grid gap-5 p-5 col-6 mx-auto" id="singlePlayer">
+    
+<button type="submit" id="singlePlayButton" class="btn btn-primary btn-block btn-lg">Single Player</button> 
+ </div>
+</form>
+
+ <form action="/multiplayer" method="get">
+ <div class="d-grid gap-3 p-5 col-6 mx-auto " id="multiPlayer">
+ <button type="submit" id="multiPlayButton" class="btn btn-primary btn-block btn-lg">Multiplayer</button> 
+ </div>
+ </form>
+
+</body> 
+</html>
