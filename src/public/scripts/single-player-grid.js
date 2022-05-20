@@ -9,3 +9,9 @@ function makeRows(row, col) {
   };
 };
 makeRows(6, 5);
+
+
+
+
+  
+
