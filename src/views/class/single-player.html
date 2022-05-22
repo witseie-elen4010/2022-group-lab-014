@@ -11,7 +11,7 @@
     <div id="container">
 
       </div>
-    <h1>Single Player Mode</h1>
+    <h1 id = "current_mode"> Single Player Mode</h1>
     <style>
 
         body{
@@ -25,10 +25,15 @@
           color:blue;
         }
 
-        #startSingleGame {
+        #play_game {
           position: absolute;
           left:100px;
           top:120px;
+          color:white;
+          background-color: darkcyan;
+          height: 35px;
+          width: 55px;
+          border: 3px solid grey;
         }
         :root {
           --grid-col: 1;
@@ -56,7 +61,7 @@
 
 
     </style>
-  <button type="button" id="startSingleGame">Start Game</button> 
+  <button type="button" id="play_game">Play</button> 
   <script src="/cdn/scripts/single-player.js"></script>
   </body>
 </html>

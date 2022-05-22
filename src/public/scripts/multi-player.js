@@ -8,26 +8,30 @@
     };
   };
   
-  const button1 = document.getElementById('mode1')
-  const button2 = document.getElementById('mode2')
-  const heading1 = document.getElementById('h1')
-  const heading2 = document.getElementById('h3')
+  const mode1 = document.getElementById('mode1')
+  const mode2 = document.getElementById('mode2')
+  const current_mode = document.getElementById('current_mode')
+  const choose_play = document.getElementById('choose_play')
+  const a_mode = document.getElementById("a_mode");
+  a_mode.style.display='none';
+  const b_mode = document.getElementById("b_mode");
+  b_mode.style.display='none';
   
-  button1.addEventListener('click', function () {
-  button1.style.display = 'none';
-  button2.style.display = 'none';
-  heading1.style.display = 'none';
-  heading2.style.display = 'none';
-  const container = document.getElementById("container");
+  mode1.addEventListener('click', function () {
+  mode1.style.display = 'none';
+  mode2.style.display = 'none';
+  current_mode.style.display = 'none';
+  choose_play.style.display = 'none';
+  a_mode.style.display='initial';
   makeRows(6, 5);
   }, false)
 
-  button2.addEventListener('click', function () {
-  button1.style.display = 'none';  
-  button2.style.display = 'none';
-  h1.style.display = 'none';
-  h3.style.display = 'none';
-  const container = document.getElementById("container");
+  mode2.addEventListener('click', function () {
+  mode1.style.display = 'none';  
+  mode2.style.display = 'none';
+  current_mode.style.display = 'none';
+  choose_play.style.display = 'none';
+  b_mode.style.display='initial';
   makeRows(6, 5);
   }, false)
   
