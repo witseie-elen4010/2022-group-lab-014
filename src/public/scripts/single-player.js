@@ -8,11 +8,13 @@ function makeRows(row, col) {
   };
 };
 
-const button = document.getElementById('startSingleGame')
+const button = document.getElementById('play_game')
 
 button.addEventListener('click', function () {
 button.style.display = 'none';
 const container = document.getElementById("container");
  makeRows(6, 5);
+
+ document.getElementById("current_mode").style.display='none';
 }, false)
 
