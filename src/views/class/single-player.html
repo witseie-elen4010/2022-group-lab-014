@@ -4,16 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Single-Player-mode</title>
-      <link rel="stylesheet" href="/cdn/css/bootstrap.min.css">
-      
+    <link rel="stylesheet" href="/cdn/css/bootstrap.min.css"> 
   </head>
   <body>
-    <div id="container">
-
-      </div>
+    <div id="container"></div>
+    <div class="container" id="keyboard"></div>
     <h1 id = "current_mode"> Single Player Mode</h1>
     <style>
-
         body{
           background-color: cornflowerblue;
         }
@@ -57,9 +54,7 @@
           margin:auto;
           grid-template-rows: repeat(var(--grid-row), 1fr);
           grid-template-columns: repeat(var(--grid-col), 1fr);
-}
-
-
+        }
     </style>
   <button type="button" id="play_game">Play</button> 
   <script src="/cdn/scripts/single-player.js"></script>
