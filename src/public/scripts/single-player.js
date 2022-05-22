@@ -13,11 +13,14 @@ function makeKeyboard(KeyRow) {
  const keyboard = document.getElementById("keyboard");
  var newDiv = document.createElement("div");
  newDiv.className = "row align-items-center";
+ if (KeyRow[0]==="Q") {
+   newDiv.style = "margin-top:200px"
+ } 
   for (var i = 0; i < KeyRow.length; i++) {
     var key = document.createElement('button');
     key.setAttribute('id', KeyRow[i])
     key.type = 'button';
-    key.className = "col-sm";
+    key.className = "col-sm btn btn-light btn btn-outline-dark";
     key.innerHTML = KeyRow[i];
     newDiv.appendChild(key);
     keyboard.appendChild(newDiv)
