@@ -27,6 +27,8 @@ function makeKeyboard (KeyRow) {
   }
 };
 
+let inWord = ''
+
 function KeysInGrid (KeyRow, cellCount) {
   let count = 0
   let currentRow = 0
@@ -39,6 +41,7 @@ function KeysInGrid (KeyRow, cellCount) {
             const cell = document.getElementById('cell' + (cellCount))
             cell.innerHTML = inKey.innerHTML
             cellCount = cellCount + 1
+            inWord += inKey.innerHTML
           } else if (inKey.innerHTML === 'ENTER' && cellCount % 5 === 0) {
             if (Math.floor(cellCount / 5) !== currentRow) {
               currentRow += 1
@@ -47,6 +50,7 @@ function KeysInGrid (KeyRow, cellCount) {
         } else if (inKey.innerHTML === 'DELETE' && cellCount > 0) {
           cellCount = cellCount - 1
           document.getElementById('cell' + cellCount).innerHTML = ''
+          inWord = inWord.slice(0, -1)
         }
       }, false)
     }
