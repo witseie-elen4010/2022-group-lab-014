@@ -2,12 +2,13 @@ function makeRows (row, col) {
   container.style.setProperty('--grid-row', row)
   container.style.setProperty('--grid-col', col)
   const numCells = row * col
-  for (i = 0; i < numCells; i++) {
+  for (let i = 0; i < numCells; i++) {
     const cell = document.createElement('div')
     cell.setAttribute('id', 'cell' + i)
+    cell.style = 'margin-top:5px'
     container.appendChild(cell).className = 'gameGrid-item'
-  };
-};
+  }
+}
 
 function makeKeyboard (KeyRow) {
   const keyboard = document.getElementById('keyboard')
@@ -16,37 +17,43 @@ function makeKeyboard (KeyRow) {
   if (KeyRow[0] === 'Q') {
     newDiv.style = 'margin-top:100px'
   }
-  for (let i = 0; i < KeyRow.length; i++) {
+  for (const element of KeyRow) {
     const key = document.createElement('button')
-    key.setAttribute('id', KeyRow[i])
+    key.setAttribute('id', element)
     key.type = 'button'
     key.className = 'col-sm btn btn-light btn btn-outline-dark'
-    key.innerHTML = KeyRow[i]
+    key.innerHTML = element
     newDiv.appendChild(key)
     keyboard.appendChild(newDiv)
   }
 };
 
+let inWord = ''
+
 function KeysInGrid (KeyRow, cellCount) {
   let count = 0
   let currentRow = 0
   while (count !== 3) {
-    for (let j = 0; j < KeyRow[count].length; j++) {
-      const inKey = document.getElementById(KeyRow[count][j])
+    for (const element of KeyRow[count]) {
+      const inKey = document.getElementById(element)
       inKey.addEventListener('click', function () {
         if ((inKey.innerHTML !== 'DELETE')) {
           if (Math.floor(cellCount / 5) === currentRow && inKey.innerHTML !== 'ENTER') {
             const cell = document.getElementById('cell' + (cellCount))
             cell.innerHTML = inKey.innerHTML
             cellCount = cellCount + 1
+            inWord += inKey.innerHTML
           } else if (inKey.innerHTML === 'ENTER' && cellCount % 5 === 0) {
             if (Math.floor(cellCount / 5) !== currentRow) {
+              checkRight(inWord, currentRow)
+              inWord = ''
               currentRow += 1
             }
           }
         } else if (inKey.innerHTML === 'DELETE' && cellCount > 0) {
           cellCount = cellCount - 1
           document.getElementById('cell' + cellCount).innerHTML = ''
+          inWord = inWord.slice(0, -1)
         }
       }, false)
     }
@@ -54,20 +61,43 @@ function KeysInGrid (KeyRow, cellCount) {
   }
 };
 
+function checkRight (word, row) {
+  word = word.toLowerCase()
+  for (let i = 0; i < 5; i++) {
+    if (answer.indexOf(word[i]) === -1) {
+      const cell = document.getElementById('cell' + (i + 5 * row))
+      cell.className = 'gameGrid-item bg-secondary'
+    }
+  }
+}
+
 const firstRowKeys = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
 const secondRowKeys = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L']
 const thirdRowKeys = ['ENTER', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'DELETE']
 const RowOfKeys = [firstRowKeys, secondRowKeys, thirdRowKeys]
 
+const container = document.getElementById('container')
 const button = document.getElementById('play_game')
+
+let answer = ''
 
 button.addEventListener('click', function () {
   button.style.display = 'none'
-  const container = document.getElementById('container')
   const cellCount = 0
   makeRows(6, 5)
   makeKeyboard(firstRowKeys)
   makeKeyboard(secondRowKeys)
   makeKeyboard(thirdRowKeys)
   KeysInGrid(RowOfKeys, cellCount)
+  fetch('/api/answer')
+    .then(function (response) {
+      if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
+    })
+    .then(function (data) {
+      answer = data[0]
+    })
+    .catch(function (e) {
+      console.log(e)
+      // alert(e)
+    })
 }, false)
