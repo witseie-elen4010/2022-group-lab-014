@@ -5,6 +5,7 @@ function makeRows (row, col) {
   for (let i = 0; i < numCells; i++) {
     const cell = document.createElement('div')
     cell.setAttribute('id', 'cell' + i)
+    cell.style = 'margin-top:5px'
     container.appendChild(cell).className = 'gameGrid-item'
   }
 }
@@ -44,6 +45,8 @@ function KeysInGrid (KeyRow, cellCount) {
             inWord += inKey.innerHTML
           } else if (inKey.innerHTML === 'ENTER' && cellCount % 5 === 0) {
             if (Math.floor(cellCount / 5) !== currentRow) {
+              checkRight(inWord, currentRow)
+              inWord = ''
               currentRow += 1
             }
           }
@@ -58,18 +61,28 @@ function KeysInGrid (KeyRow, cellCount) {
   }
 };
 
+function checkRight (word, row) {
+  word = word.toLowerCase()
+  for (let i = 0; i < 5; i++) {
+    if (answer.indexOf(word[i]) === -1) {
+      const cell = document.getElementById('cell' + (i + 5 * row))
+      cell.className = 'gameGrid-item bg-secondary'
+    }
+  }
+}
+
 const firstRowKeys = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
 const secondRowKeys = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L']
 const thirdRowKeys = ['ENTER', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'DELETE']
 const RowOfKeys = [firstRowKeys, secondRowKeys, thirdRowKeys]
 
+const container = document.getElementById('container')
 const button = document.getElementById('play_game')
 
 let answer = ''
 
 button.addEventListener('click', function () {
   button.style.display = 'none'
-  const container = document.getElementById('container')
   const cellCount = 0
   makeRows(6, 5)
   makeKeyboard(firstRowKeys)
@@ -82,7 +95,6 @@ button.addEventListener('click', function () {
     })
     .then(function (data) {
       answer = data[0]
-      console.log(answer)
     })
     .catch(function (e) {
       console.log(e)
