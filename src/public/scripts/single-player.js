@@ -2,12 +2,12 @@ function makeRows (row, col) {
   container.style.setProperty('--grid-row', row)
   container.style.setProperty('--grid-col', col)
   const numCells = row * col
-  for (i = 0; i < numCells; i++) {
+  for (let i = 0; i < numCells; i++) {
     const cell = document.createElement('div')
     cell.setAttribute('id', 'cell' + i)
     container.appendChild(cell).className = 'gameGrid-item'
-  };
-};
+  }
+}
 
 function makeKeyboard (KeyRow) {
   const keyboard = document.getElementById('keyboard')
@@ -16,12 +16,12 @@ function makeKeyboard (KeyRow) {
   if (KeyRow[0] === 'Q') {
     newDiv.style = 'margin-top:100px'
   }
-  for (let i = 0; i < KeyRow.length; i++) {
+  for (const element of KeyRow) {
     const key = document.createElement('button')
-    key.setAttribute('id', KeyRow[i])
+    key.setAttribute('id', element)
     key.type = 'button'
     key.className = 'col-sm btn btn-light btn btn-outline-dark'
-    key.innerHTML = KeyRow[i]
+    key.innerHTML = element
     newDiv.appendChild(key)
     keyboard.appendChild(newDiv)
   }
@@ -31,8 +31,8 @@ function KeysInGrid (KeyRow, cellCount) {
   let count = 0
   let currentRow = 0
   while (count !== 3) {
-    for (let j = 0; j < KeyRow[count].length; j++) {
-      const inKey = document.getElementById(KeyRow[count][j])
+    for (const element of KeyRow[count]) {
+      const inKey = document.getElementById(element)
       inKey.addEventListener('click', function () {
         if ((inKey.innerHTML !== 'DELETE')) {
           if (Math.floor(cellCount / 5) === currentRow && inKey.innerHTML !== 'ENTER') {
@@ -61,6 +61,8 @@ const RowOfKeys = [firstRowKeys, secondRowKeys, thirdRowKeys]
 
 const button = document.getElementById('play_game')
 
+let answer = ''
+
 button.addEventListener('click', function () {
   button.style.display = 'none'
   const container = document.getElementById('container')
@@ -70,4 +72,16 @@ button.addEventListener('click', function () {
   makeKeyboard(secondRowKeys)
   makeKeyboard(thirdRowKeys)
   KeysInGrid(RowOfKeys, cellCount)
+  fetch('/api/answer')
+    .then(function (response) {
+      if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
+    })
+    .then(function (data) {
+      answer = data[0]
+      console.log(answer)
+    })
+    .catch(function (e) {
+      console.log(e)
+      // alert(e)
+    })
 }, false)

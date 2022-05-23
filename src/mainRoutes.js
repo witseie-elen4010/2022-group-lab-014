@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 const mainRouter = express.Router()
+const dict = require('./dictionary.js')
 
 function isCookie (req) {
   const cookies = req.headers.cookie
@@ -44,6 +45,10 @@ mainRouter.get('/rules', function (req, res) {
   } else {
     res.redirect('/login')
   }
+})
+
+mainRouter.get('/api/answer', function (req, res) {
+  res.send(JSON.stringify([dict.todayWord(Math.floor(Math.random() * 2309))]))
 })
 
 module.exports = mainRouter
