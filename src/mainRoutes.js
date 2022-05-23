@@ -51,4 +51,8 @@ mainRouter.get('/api/answer', function (req, res) {
   res.send(JSON.stringify([dict.todayWord(Math.floor(Math.random() * 2309))]))
 })
 
+mainRouter.get('/api/isValid', function (req, res) {
+  res.send(JSON.stringify(dict.getJSON()))
+})
+
 module.exports = mainRouter
