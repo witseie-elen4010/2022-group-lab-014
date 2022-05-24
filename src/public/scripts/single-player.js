@@ -66,6 +66,7 @@ function KeysInGrid (KeyRow, cellCount) {
 };
 
 function isValid (word) {
+  console.log(answer)
   return allValid.includes(word.toLowerCase())
 }
 
@@ -76,6 +77,11 @@ function checkRight (word, row) {
       const cell = document.getElementById('cell' + (i + 5 * row))
       cell.className = 'gameGrid-item bg-secondary'
     }
+    else if (answer.indexOf(word[i]) !== -1) {
+      const cell = document.getElementById('cell' + (i + 5 * row))
+      cell.className = 'gameGrid-item bg-warning'
+    }
+    
   }
 }
 
