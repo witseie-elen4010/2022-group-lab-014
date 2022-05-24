@@ -7,5 +7,8 @@ module.exports = {
   },
   validWord: function (word) {
     return valid.includes(word.toLowerCase()) || answers.includes(word.toLowerCase())
+  },
+  getJSON: function () {
+    return valid.concat(answers)
   }
 }

@@ -45,9 +45,13 @@ function KeysInGrid (KeyRow, cellCount) {
             inWord += inKey.innerHTML
           } else if (inKey.innerHTML === 'ENTER' && cellCount % 5 === 0) {
             if (Math.floor(cellCount / 5) !== currentRow) {
-              checkRight(inWord, currentRow)
-              inWord = ''
-              currentRow += 1
+              if (isValid(inWord)) {
+                checkRight(inWord, currentRow)
+                inWord = ''
+                currentRow += 1
+              } else {
+                alert('Your word is invalid.')
+              }
             }
           }
         } else if (inKey.innerHTML === 'DELETE' && cellCount > 0) {
@@ -60,6 +64,10 @@ function KeysInGrid (KeyRow, cellCount) {
     count = count + 1
   }
 };
+
+function isValid (word) {
+  return allValid.includes(word.toLowerCase())
+}
 
 function checkRight (word, row) {
   word = word.toLowerCase()
@@ -80,6 +88,7 @@ const container = document.getElementById('container')
 const button = document.getElementById('play_game')
 
 let answer = ''
+let allValid = []
 
 button.addEventListener('click', function () {
   button.style.display = 'none'
@@ -95,6 +104,17 @@ button.addEventListener('click', function () {
     })
     .then(function (data) {
       answer = data[0]
+    })
+    .catch(function (e) {
+      console.log(e)
+      // alert(e)
+    })
+  fetch('/api/isValid')
+    .then(function (response) {
+      if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
+    })
+    .then(function (data) {
+      allValid = allValid.concat(data)
     })
     .catch(function (e) {
       console.log(e)
