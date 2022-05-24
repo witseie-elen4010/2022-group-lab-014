@@ -77,6 +77,10 @@ function checkRight (word, row) {
       const cell = document.getElementById('cell' + (i + 5 * row))
       cell.className = 'gameGrid-item bg-secondary'
     }
+    else if (word[i]==answer[i]) {
+      const cell = document.getElementById('cell' + (i + 5 * row))
+      cell.className = 'gameGrid-item bg-success'     
+    }
     else if (answer.indexOf(word[i]) !== -1) {
       const cell = document.getElementById('cell' + (i + 5 * row))
       cell.className = 'gameGrid-item bg-warning'
