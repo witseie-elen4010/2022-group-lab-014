@@ -79,7 +79,9 @@ function checkRight (word, row) {
     }
     else if (word[i]==answer[i]) {
       const cell = document.getElementById('cell' + (i + 5 * row))
-      cell.className = 'gameGrid-item bg-success'     
+      cell.className = 'gameGrid-item bg-success' 
+      const key = document.getElementById(word[i].toUpperCase())
+      key.className = 'col-sm btn btn-success btn btn-outline-dark'    
     }
     else if (answer.indexOf(word[i]) !== -1) {
       const cell = document.getElementById('cell' + (i + 5 * row))
