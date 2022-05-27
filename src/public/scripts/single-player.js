@@ -70,29 +70,40 @@ function isValid (word) {
   return allValid.includes(word.toLowerCase())
 }
 
-function checkRight (word, row) {
+function checkRight (word, row){
+  copyAnswer=answer
   word = word.toLowerCase()
-  for (let i = 0; i < 5; i++) {
-    if (answer.indexOf(word[i]) === -1) {
-      const cell = document.getElementById('cell' + (i + 5 * row))
-      cell.className = 'gameGrid-item bg-secondary'
-      const key = document.getElementById(word[i].toUpperCase())
-      key.className = 'col-sm btn btn-secondary btn btn-outline-dark'
-    }
-    else if (word[i]==answer[i]) {
+  for (let i = 0; i < 5; i++){
+    if (word[i]==copyAnswer[i]) {
       const cell = document.getElementById('cell' + (i + 5 * row))
       cell.className = 'gameGrid-item bg-success' 
       const key = document.getElementById(word[i].toUpperCase())
-      key.className = 'col-sm btn btn-success btn btn-outline-dark'    
+      key.className = 'col-sm btn btn-success btn btn-outline-dark'
+      copyAnswer=copyAnswer.replace(copyAnswer[i],'0')
+      console.log(copyAnswer)
     }
-    else if (answer.indexOf(word[i]) !== -1) {
-      const cell = document.getElementById('cell' + (i + 5 * row))
-      cell.className = 'gameGrid-item bg-warning'
-      const key = document.getElementById(word[i].toUpperCase())
-      key.className = 'col-sm btn btn-warning btn btn-outline-dark'
-    }
-    
   }
+  for (let i = 0; i < 5; i++) {
+    const cell = document.getElementById('cell' + (i + 5 * row))
+    if (cell.className !== 'gameGrid-item bg-success'){
+      if (copyAnswer.indexOf(word[i]) !== -1) {
+        cell.className = 'gameGrid-item bg-warning'
+        const key = document.getElementById(word[i].toUpperCase())
+        if (key.className !== 'col-sm btn btn-success btn btn-outline-dark'){
+          key.className = 'col-sm btn btn-warning btn btn-outline-dark'
+        }
+        copyAnswer=copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])],'0')
+    }
+      else if (copyAnswer.indexOf(word[i]) === -1){ 
+      cell.className = 'gameGrid-item bg-secondary'
+        const key = document.getElementById(word[i].toUpperCase())
+        if (key.className !== 'col-sm btn btn-success btn btn-outline-dark'){
+          key.className = 'col-sm btn btn-secondary btn btn-outline-dark'
+        }
+      copyAnswer=copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])],'0')
+    }
+  }
+}
 }
 
 const firstRowKeys = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
@@ -120,6 +131,7 @@ button.addEventListener('click', function () {
     })
     .then(function (data) {
       answer = data[0]
+      copyAnswer = answer
     })
     .catch(function (e) {
       console.log(e)
