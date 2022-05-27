@@ -1,5 +1,5 @@
 /* eslint-env jest */
-
+"use strict";
 const dict = require('../dictionary.js')
 
 describe('Disctionary functions', () => {
