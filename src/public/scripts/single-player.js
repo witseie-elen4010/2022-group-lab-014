@@ -96,6 +96,10 @@ function checkRight (word, row){
     }
       else if (copyAnswer.indexOf(word[i]) === -1){ 
       cell.className = 'gameGrid-item bg-secondary'
+        const key = document.getElementById(word[i].toUpperCase())
+        if (key.className !== 'col-sm btn btn-success btn btn-outline-dark'){
+          key.className = 'col-sm btn btn-secondary btn btn-outline-dark'
+        }
       copyAnswer=copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])],'0')
     }
   }
