@@ -10,13 +10,14 @@
 <body class="bg-info text-white">
     <h1 class="display-1 position-relative text-white text-center">Welcome to Wordie!</h1>
     <h3 class="display-8 position-relative text-white text-center">Please enter your username below</h3>
-    <div class="d-grid gap-5 p5 col-6 mx-auto">
-        <input type="text" id="user" placeholder="Username"/>
-    </div>
-    <div class="d-grid gap-3 p5 col-6 mx-auto">
-        <button class="btn btn-primary btn-block btn-lg" type="Submit" id="enter">Enter</button>
-    </div>
-    <script src="/cdn/scripts/login.js"></script>
+    <form action="api/database" method="post">
+        <div class="d-grid gap-5 p5 col-6 mx-auto">
+            <input type="text" id="user" name="user" placeholder="Username"/>
+        </div>
+        <div class="d-grid gap-3 p5 col-6 mx-auto">
+            <button class="btn btn-primary btn-block btn-lg" type="Submit" id="enter">Enter</button>
+        </div>
+    </form>
 </body>
 
 </html>

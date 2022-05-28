@@ -3,6 +3,11 @@ const app = express()
 
 const mainRouter = require('./mainRoutes.js')
 
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use('/', mainRouter)
 app.use('/cdn', express.static('public'))
 
