@@ -69,6 +69,7 @@ function isValid (word) {
   console.log(answer)
   return allValid.includes(word.toLowerCase())
 }
+var chances=0;
 
 function checkRight (word, row){
   copyAnswer=answer
@@ -104,7 +105,21 @@ function checkRight (word, row){
     }
   }
 }
+chances=chances+1;
+if(word===answer){
+  document.querySelector(".popup").style.display = "block";
 }
+else if (chances===6){
+  document.querySelector(".popup2").style.display = "block";
+}
+}
+document.querySelector("#closebutton").addEventListener("click", function(){
+  document.querySelector(".popup").style.display = "none";
+});
+document.querySelector("#closebutton2").addEventListener("click", function(){
+  document.querySelector(".popup2").style.display = "none";
+});
+
 
 const firstRowKeys = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
 const secondRowKeys = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L']
