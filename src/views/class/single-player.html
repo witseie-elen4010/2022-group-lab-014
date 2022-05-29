@@ -10,10 +10,80 @@
     <div id="container"></div>
     <div class="container" id="keyboard"></div>
     <h1 id = "current_mode"> Single Player Mode</h1>
+    <div class="popup">
+      <h2>YOU HAVE WON!</h2>
+      <button id="closebutton">Close</button>
+    </div>
+    <div class="popup2">
+      <h2>YOU LOST, SUCKERRRRR</h2>
+      <button id="closebutton2">Close</button>
+    </div>
     <style>
         body{
           background-color: cornflowerblue;
         }
+        .popup{
+            background-color: black;
+            color:white;
+            width: 496px;
+            height: 230px;
+            padding: 30px 40px;
+            position: absolute;
+            transform: translate(-50%,-70%); 
+            left: 50%;
+            top: 50%;
+            border-radius: 8px;
+            display: none;
+            font-family: "Poppins",sans-serif;
+            text-align: center;
+        }
+        .closebutton{
+            display: block;
+            position:relative;
+            background-color: white;
+            font-size: 30px;
+            color: black;
+            width: 40px;
+            height: 40px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        .popup h2{
+            margin-top: -20px;
+          }
+          .popup2{
+            background-color: black;
+            color:white;
+            width: 496px;
+            height: 230px;
+            padding: 30px 40px;
+            position: absolute;
+            transform: translate(-50%,-70%); 
+            left: 50%;
+            top: 50%;
+            border-radius: 8px;
+            display: none;
+            font-family: "Poppins",sans-serif;
+            text-align: center;
+        }
+        .closebutton2{
+            display: block;
+            position:relative;
+            background-color: white;
+            font-size: 30px;
+            color: black;
+            width: 40px;
+            height: 40px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        .popup2 h2{
+            margin-top: -20px;
+          }
+
+
 
         h1{
           position: absolute;
