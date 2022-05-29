@@ -2,7 +2,7 @@
 "use strict";
 const request=require ('supertest');
 const express=require('express');
-const router=require("../mainRoutes");
+const router=require("../mockRoutes");
 const dict = require('../dictionary.js')
 const app=express();
 app.use('/', router)
