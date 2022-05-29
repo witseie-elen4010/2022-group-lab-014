@@ -1,3 +1,4 @@
+
 function makeRows (row, col) {
   container.style.setProperty('--grid-row', row)
   container.style.setProperty('--grid-col', col)
@@ -106,22 +107,54 @@ function checkRight (word, row){
   }
 }
 chances=chances+1;
+let won=0
+let name=""
+let played = 0
 if(word===answer){
   document.querySelector(".popup").style.display = "block";
   fetch('/api/user')
-  .then(function (response) {
-    if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
-  })
-  .then(function (data) {
-    
-    won=data.games_won
-    
-    displayStreak1()
-  })
-  .catch(function (e) {
-    console.log(e)
-    // alert(e)
-  })
+    .then(function (response) {
+      if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
+    })
+    .then(function (data) {
+      
+      won=data.games_won+1
+      name=data.username
+      played=data.games_played+1
+
+      
+      
+      const newData={
+        "username": name,
+        "games_played": played,
+        "games_won": won
+      }
+      
+      displayStreak1(won)
+      
+      fetch('/api/gamesWon', {
+        method: 'post',//specify method to use
+        headers: {//headers to specify the type of data needed
+                'Content-Type': 'application/json'
+            },
+        body: JSON.stringify(newData)
+      }) // fill body of request. Here the data is a JSON object })
+      .then(function(response) {
+        if(response.ok)
+        return response.json(); // Return the response parse as JSON if code is valid else
+        throw 'Failed!'
+      })
+      .catch(function (e) { // Process error for request
+        alert(e) // Displays a browser alert with the error message. // This will be the string thrown in line 7 IF the
+          // response code is the reason for jumping to this
+          // catch() function.
+      })
+    })
+     .catch(function (e) {
+      console.log(e)
+    })
+
+  
 }
 else if (chances===6){
   document.querySelector(".popup2").style.display = "block";
@@ -132,29 +165,55 @@ else if (chances===6){
   .then(function (data) {
     
     won=data.games_won
+    name=data.username
+    played=data.games_played+1
+
+    const newData={
+      "username": name,
+      "games_played": played,
+      "games_won": won
+    }
+
     
-    displayStreak2()
+    displayStreak2(won)
+    fetch('/api/gamesWon', {
+      method: 'post',//specify method to use
+      headers: {//headers to specify the type of data needed
+              'Content-Type': 'application/json'
+          },
+      body: JSON.stringify(newData)
+    }) // fill body of request. Here the data is a JSON object })
+    .then(function(response) {
+      if(response.ok)
+      return response.json(); // Return the response parse as JSON if code is valid else
+      throw 'Failed!'
+    })
+    .catch(function (e) { // Process error for request
+      alert(e) // Displays a browser alert with the error message. // This will be the string thrown in line 7 IF the
+        // response code is the reason for jumping to this
+        // catch() function.
+    })
   })
   .catch(function (e) {
     console.log(e)
-    // alert(e)
+    
   })
 }
 }
 
-function displayStreak1 () {
+function displayStreak1 (num) {
   const win=document.getElementById("win")
   const heading = document.createElement('h3')
-  const name = 'you have won ' + String(won) + ' games in your career'
+  const name = 'you have won ' + String(num) + ' games in your career'
   const text = document.createTextNode(name)
   heading.appendChild(text).className = ' display-1 position-relative text-white text-center'
   win.appendChild(heading)
   
 }
-function displayStreak2 () {
+function displayStreak2 (num) {
   const lose=document.getElementById("lose")
   const heading = document.createElement('h3')
-  const name = 'you have won ' + String(won) + ' games in your career'
+  const name = 'you have won ' + String(num) + ' games in your career'
   const text = document.createTextNode(name)
   heading.appendChild(text).className = ' display-1 position-relative text-white text-center'
   lose.appendChild(heading)
