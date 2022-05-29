@@ -59,4 +59,19 @@ mainRouter.post('/api/database', function (req, res) {
     })
 })
 
+mainRouter.post('/api/gamesWon', function (req, res) {
+  const name = req.body.username
+  const played = req.body.games_played
+  const won = req.body.games_won
+  db.pools
+    .then((pool) => {
+      return pool.request()
+        .query("UPDATE [dbo].[Users] SET games_played=" + String(played) + ", games_won=" + String(won) + "WHERE username='" + name + "';", function (err, result) {
+          if (err) throw err
+          
+        })
+    })
+})
+
+
 module.exports = mainRouter
