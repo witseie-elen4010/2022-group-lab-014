@@ -108,11 +108,60 @@ function checkRight (word, row){
 chances=chances+1;
 if(word===answer){
   document.querySelector(".popup").style.display = "block";
+  fetch('/api/user')
+  .then(function (response) {
+    if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
+  })
+  .then(function (data) {
+    
+    won=data.games_won
+    
+    displayStreak1()
+  })
+  .catch(function (e) {
+    console.log(e)
+    // alert(e)
+  })
 }
 else if (chances===6){
   document.querySelector(".popup2").style.display = "block";
+  fetch('/api/user')
+  .then(function (response) {
+    if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
+  })
+  .then(function (data) {
+    
+    won=data.games_won
+    
+    displayStreak2()
+  })
+  .catch(function (e) {
+    console.log(e)
+    // alert(e)
+  })
 }
 }
+
+function displayStreak1 () {
+  const win=document.getElementById("win")
+  const heading = document.createElement('h3')
+  const name = 'you have won ' + String(won) + ' games in your career'
+  const text = document.createTextNode(name)
+  heading.appendChild(text).className = ' display-1 position-relative text-white text-center'
+  win.appendChild(heading)
+  
+}
+function displayStreak2 () {
+  const lose=document.getElementById("lose")
+  const heading = document.createElement('h3')
+  const name = 'you have won ' + String(won) + ' games in your career'
+  const text = document.createTextNode(name)
+  heading.appendChild(text).className = ' display-1 position-relative text-white text-center'
+  lose.appendChild(heading)
+  
+}
+
+
 document.querySelector("#closebutton").addEventListener("click", function(){
   document.querySelector(".popup").style.display = "none";
 });
