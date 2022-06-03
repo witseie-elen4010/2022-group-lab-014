@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Single-Player-mode</title>
+    <link rel="stylesheet" href="/cdn/css/bootstrap.min.css"> 
+  </head>
+  <body>
+    <div id="container"></div>
+    <div id="container2"></div>
+    <div class="container" id="keyboard"></div>
+    <h2 id="hOpponent2" >Opponent 1:</h2>
+    <div id="win" class="popup">
+      <h2>YOU HAVE WON!</h2>
+      <button id="closebutton">Close</button>
+    </div>
+    <div id="lose" class="popup2">
+      <h2>YOU LOST, SUCKERRRRR</h2>
+      <button id="closebutton2">Close</button>
+    </div>
+    <style>
+         #hOpponent2{
+          position: absolute;
+          right: 10px;
+          top:10px;
+          color:darkcyan;
+        }
+        body{
+          background-color: cornflowerblue;
+        }
+        .popup{
+            background-color: black;
+            color:white;
+            width: 496px;
+            height: 230px;
+            padding: 30px 40px;
+            position: absolute;
+            transform: translate(-50%,-70%); 
+            left: 50%;
+            top: 50%;
+            border-radius: 8px;
+            display: none;
+            font-family: "Poppins",sans-serif;
+            text-align: center;
+        }
+        .closebutton{
+            display: block;
+            position:relative;
+            background-color: white;
+            font-size: 30px;
+            color: black;
+            width: 40px;
+            height: 40px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        .popup h2{
+            margin-top: -20px;
+          }
+          .popup2{
+            background-color: black;
+            color:white;
+            width: 496px;
+            height: 230px;
+            padding: 30px 40px;
+            position: absolute;
+            transform: translate(-50%,-70%); 
+            left: 50%;
+            top: 50%;
+            border-radius: 8px;
+            display: none;
+            font-family: "Poppins",sans-serif;
+            text-align: center;
+        }
+        .closebutton2{
+            display: block;
+            position:relative;
+            background-color: white;
+            font-size: 30px;
+            color: black;
+            width: 40px;
+            height: 40px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        .popup2 h2{
+            margin-top: -20px;
+          }
+
+        :root {
+          --grid-col: 1;
+          --grid-row: 1;
+        }
+
+        .opp1Grid-item{ 
+        padding: 10px;
+          height: 60px;
+          width:60px;
+          color: white;
+          border: 3px solid white
+      }
+      .opp2Grid-item{
+        padding: 10px;
+       height: 20px;
+       width: 20px;
+       color: white;
+       border: 3px solid white
+      }
+      .cell {
+        border: 1px solid white;
+      }
+      #container {
+        height:360px;
+          width:300px;
+          display: grid;
+          grid-gap: 3px;
+          margin:auto;
+          grid-template-rows: repeat(var(--grid-row), 1fr);
+          grid-template-columns: repeat(var(--grid-col), 1fr);
+}
+      #container2 {
+        position: absolute;
+          right: 10px;
+          top: 50px;
+          height: 120px;
+          width:100x;
+          display: grid;
+          grid-gap: 3px;
+          grid-template-rows: repeat(var(--grid-row), 1fr);
+          grid-template-columns: repeat(var(--grid-col), 1fr);
+}
+        .my-heading-row{
+                background-color: grey;
+                width: 496px   
+            }
+            .my-single-row{
+                background-color: green;
+                width: 496px
+            }
+            .my-multi-row{
+                background-color: yellow;
+                width: 496px
+             }
+            .my-normal-row{
+                background-color: whitesmoke;
+                width: 496px
+            } 
+    </style>
+
+<div class="modalContainer">
+  <div class="row">
+      <div class="col">
+          <div class="modal fade" id="Rules">
+              <div class="modal-dialog">
+                  <div class="modal-content modal-xl">
+                      <div class="modal-header">  
+                          <!-- put in fluid to change with screen size -->
+                          <!-- <div class="row  my-heading-row"><h3>How To Play</h3></div> -->
+                          <div class="row my-heading-row"><div class="col-8 col-justify-content"><h2>How To Play</h2></div></div>
+                      </div>    
+                      <div class="modal-body">
+                          <div class="row my-single-row"><h3>Single Player</h3></div>
+                          <div class="row my-normal-row ">
+                              -You have 6 chances to guess the 5 letter word
+                              <br>
+                              -Press enter to submit
+                              <br>
+                              -A green tile means the letter is in the word and in the correct position.
+                              <br>
+                              -A yellow tiles means the letter is in the word but in the wrong position.
+                          </div>
+                          <div class="row my-multi-row"> <h2>Multiplayer</h2></div>
+                          <div class="row my-normal-row">
+                              -The rules of playing are the same as single player.
+                              <br>
+                               -Multiplayer mode has 2 different options available.
+                              <br>
+                               -1)Players guess a random word provided by the computer 
+                              <br>  
+                               -2)1 player will choose the word to guess and the rest of the players will guess.
+                              <br> 
+                               -This requires atleast 3 players to play.
+                              <br>
+                               -The first person to guess the correct word wins! 
+                              <br> 
+                           </div>
+                      </div>
+                      <div class="modal-footer">
+                          <input class="btn btn-dark" data-dismiss="modal" value="Close"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <button class="button btn-dark" data-toggle="modal" data-target="#Rules">Open Rules</div>
+    <!-- <div>
+        <button  class="button btn-light" id="return" type="submit">Return</button>
+    </div> -->
+  <script src="/cdn/scripts/multi-player-random.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

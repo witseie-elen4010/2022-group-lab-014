@@ -16,10 +16,12 @@ mainRouter.get('/single', function (req, res) {
   res.sendFile(path.join(__dirname, 'views', 'class', 'single-player.html'))
 })
 
-mainRouter.get('/multiplayer', function (req, res) {
+mainRouter.get('/multiplayerchooseMode', function (req, res) {
   res.sendFile(path.join(__dirname, 'views', 'class', 'multi-player.html'))
 })
-
+mainRouter.get('/randomWordMode', function (req, res) {
+  res.sendFile(path.join(__dirname, 'views', 'class', 'multi-player-random.html'))
+})
 mainRouter.get('/rules', function (req, res) {
   res.sendFile(path.join(__dirname, 'views', 'class', 'rules.html'))
 })
