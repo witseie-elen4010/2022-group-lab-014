@@ -1,6 +1,6 @@
 const startGameBtn = document.getElementById('startGameBtn')
 const gameCodeInput = document.getElementById('gameCodeInput')
-const username = ''
+let username = window.localStorage.getItem('username')
 let code = 0
 const gameMode = ''
 
@@ -40,7 +40,6 @@ fetch('/api/Mode')
     console.log(e)
   })
 
-// getting player username
 fetch('/api/multiUsers')
   .then(function (response) {
     if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
@@ -59,3 +58,23 @@ fetch('/api/multiUsers')
     console.log(e)
   })
 
+fetch('/api/multiUsers')
+  .then(function (response) {
+    if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
+  })
+  .then(function (data) {
+    const index=data.indexOf(username)
+    console.log(index)
+    if (data.length === 3) {
+      startGameBtn.addEventListener('click', function() {
+        if (index === 0) {
+          window.location.replace('/guessWord')
+        } else {
+          window.location.replace('/')
+        }
+      })
+    }
+  })
+  .catch(function (e) {
+    console.log(e)
+  })

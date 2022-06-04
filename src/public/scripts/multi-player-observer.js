@@ -1,4 +1,4 @@
-const container2 = document.getElementById("container2");  
+  const container2 = document.getElementById("container2");  
   const container1 = document.getElementById("container1");  
   const container3 = document.getElementById("container3");  
   let num_of_players=3;
