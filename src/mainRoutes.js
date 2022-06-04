@@ -33,7 +33,9 @@ mainRouter.get('/single', function (req, res) {
 mainRouter.get('/multiplayer', function (req, res) {
   res.sendFile(path.join(__dirname, 'views', 'class', 'multi-player.html'))
 })
-
+mainRouter.get('/randomWordMode', function (req, res) {
+  res.sendFile(path.join(__dirname, 'views', 'class', 'multi-player-random.html'))
+})
 mainRouter.get('/rules', function (req, res) {
   res.sendFile(path.join(__dirname, 'views', 'class', 'rules.html'))
 })
