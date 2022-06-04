@@ -1,58 +1,44 @@
-  // fetch('/api/fetchGuessWord')
-  //   .then(function (response) {
-  //     if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
-  //   })
-  const container2 = document.getElementById("container2");  
-  const container1 = document.getElementById("container1");  
-  const container3 = document.getElementById("container3");  
-  let num_of_players=3;
-  function makeRows(row, col) {
-    container1.style.setProperty('--grid-row', row);
-    container1.style.setProperty('--grid-col', col);
-    const numCells=row*col;
-    for (i = 0; i < numCells; i++) {
-      let cell = document.createElement("div");
-      container1.appendChild(cell).className = 'opp1Grid-item';
-    };
-  };
+let allValid = []
 
-  function makeRows2(row, col) {
-    container2.style.setProperty('--grid-row', row);
-    container2.style.setProperty('--grid-col', col);
-    const numCells=row*col;
-    for (i = 0; i < numCells; i++) {
-      let cell = document.createElement("div");
-      container2.appendChild(cell).className = 'opp2Grid-item';
-    };
-  };
+fetch('/api/isValid')
+.then(function (response) {
+  if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
+})
+.then(function (data) {
+  allValid = allValid.concat(data)
+})
+.catch(function (e) {
+  console.log(e)
+  // alert(e)
+})
 
-  function makeRows3(row, col) {
-    container3.style.setProperty('--grid-row', row);
-    container3.style.setProperty('--grid-col', col);
-    const numCells=row*col;
-    for (i = 0; i < numCells; i++) {
-      let cell = document.createElement("div");
-      container3.appendChild(cell).className = 'opp3Grid-item';
-    };
-  };
-
-const hOpponent1 = document.getElementById("hOpponent1");  
-const hOpponent2 = document.getElementById("hOpponent2");  
-const hsingle = document.getElementById("hsingle");  
-hOpponent1.style.display = 'none'
-hOpponent2.style.display = 'none'
-hsingle.style.display = 'none'
-if (num_of_players==3){
-  makeRows2(6, 5);
-  makeRows(6, 5);
-  hOpponent1.style.display = 'initial'
-  hOpponent2.style.display = 'initial'
-  hsingle.style.display = 'none'
+function isValid (word) {
+  console.log(answer)
+  return allValid.includes(word.toLowerCase())
 }
-else if(num_of_players==2){
-  makeRows3(6, 5);
-  hOpponent1.style.display = 'none'
-hOpponent2.style.display = 'none'
-  hsingle.style.display = 'initial'
-}
+
+let word=""
+const enter=document.getElementById('enter')
+
+  // enter.addEventListener('click',function(){
+    fetch('/api/fetchGuessWord')
+    .then(function (response) {
+      if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
+    })
+    .then(function (data) {
+      word = data
+      console.log(word)
+      if (isValid(word)) {
+        console.log(word)
+      } else {
+        alert('Your word is invalid.')
+      }
+    })
+    .catch(function (e) {
+      console.log(e)
+    })
+
+  // },false)
+
+  
 

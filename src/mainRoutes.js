@@ -3,7 +3,7 @@ const express = require('express')
 const mainRouter = express.Router()
 const dict = require('./dictionary.js')
 const db = require('./db.js')
-let guessWord1=0
+let guessWord1=''
 
 mainRouter.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'views', 'class', 'index.html'))
@@ -76,13 +76,21 @@ mainRouter.post('/api/gamesWon', function (req, res) {
         })
     })
 })
+
+
+mainRouter.post('/api/guessWord', function (req, res) {
+  guessWord1 = req.body.guessWord
+  if (dict.validWord(guessWord1)) {
+    res.redirect('/')
+  } else {
+    res.redirect('/guessWord')
+  }
+  // console.log(guessWord1)
+  // console.log(guessWord1)
+})
 mainRouter.get('/api/fetchGuessWord', function (req, res) {
   res.send(guessWord1)
 })
-mainRouter.post('/api/guessWord', function (req, res) {
-  guessWord1 = req.body.guessWord
-  console.log(guessWord1)
-  res.redirect('/')
-})
+
 
 module.exports = mainRouter
