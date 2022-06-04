@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/cdn/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body class="bg-info text-white">
+    <h1 class="display-1 position-relative text-white text-center">Please enter the word that you would like your friends to guess</h1>
+    <form action="api/guessWord" method="post">
+        <div class="d-grid gap-5 p5 col-6 mx-auto">
+            <input type="text" id="guessWord" name="guessWord" placeholder="Word to be guessed"/>
+        </div>
+        <div class="d-grid gap-3 p5 col-6 mx-auto">
+            <button class="btn btn-primary btn-block btn-lg" type="Submit" id="enter">Enter</button>
+        </div>
+    </form>
+</body>
+
+</html>
+

@@ -33,4 +33,15 @@ describe('When Requests to multiplayer api\'s ', () => {
     // have the square brackets
     expect(answer.text.length).toBe(2)
   })
+
+  it('api/fetchGuessWord returns an array', async () => {
+    const answer = await request(app).get('/api/multiUsers')
+    expect(answer.statusCode).toBe(200)
+    expect(answer.header['content-type']).toBe('text/html; charset=utf-8')
+    // A 5 letter word is sent. The length of this is 7 as it includes
+    // inverted commas
+    // It is initially, however, an empty string and will therefore have 
+    // a length of 2
+    expect(answer.text.length).toBe(2)
+  })
 })

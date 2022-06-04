@@ -3,6 +3,7 @@ const express = require('express')
 const mainRouter = express.Router()
 const dict = require('./dictionary.js')
 const db = require('./db.js')
+let guessWord1=''
 const lobbycode = require('./code.js')
 
 const userdetails = {
@@ -35,6 +36,14 @@ mainRouter.get('/multiplayer', function (req, res) {
 
 mainRouter.get('/rules', function (req, res) {
   res.sendFile(path.join(__dirname, 'views', 'class', 'rules.html'))
+})
+
+mainRouter.get('/guessWord', function (req, res) {
+  res.sendFile(path.join(__dirname, 'views', 'class', 'multi-player-guessWord.html'))
+})
+
+mainRouter.get('/observer', function (req, res) {
+  res.sendFile(path.join(__dirname, 'views', 'class', 'multi-player-observer.html'))
 })
 
 mainRouter.get('/startRoom', function (req, res) {
@@ -139,5 +148,18 @@ mainRouter.post('/api/gamesWon', function (req, res) {
 mainRouter.get('/api/multiUsers', function (req, res) {
   res.send(JSON.stringify(multiPlayerUsers))
 })
+
+mainRouter.post('/api/guessWord', function (req, res) {
+  guessWord1 = req.body.guessWord
+  if (dict.validWord(guessWord1)) {
+    res.redirect('/observer')
+  } else {
+    res.redirect('/guessWord')
+  }
+})
+mainRouter.get('/api/fetchGuessWord', function (req, res) {
+  res.send(guessWord1)
+})
+
 
 module.exports = mainRouter
