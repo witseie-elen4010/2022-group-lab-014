@@ -58,6 +58,19 @@ fetch('/api/multiUsers')
     console.log(e)
   })
 
+let mode = ''
+fetch('/api/Mode')
+  .then(function (response) {
+    if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
+  })
+  .then(function (data) {
+    mode=data[0]
+  })
+  .catch(function (e) {
+    console.log(e)
+  })
+
+
 fetch('/api/multiUsers')
   .then(function (response) {
     if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
@@ -65,13 +78,18 @@ fetch('/api/multiUsers')
   .then(function (data) {
     const index=data.indexOf(username)
     console.log(index)
-    if (data.length === 3) {
+    if ((data.length === 3) && (mode==='A')) {
       startGameBtn.addEventListener('click', function() {
         if (index === 0) {
           window.location.replace('/guessWord')
         } else {
           window.location.replace('/')
         }
+      })
+    }
+    else if ((data.length === 2) && (mode==='B')) {
+      startGameBtn.addEventListener('click', function() {
+        window.location.replace('/randomWordMode')
       })
     }
   })
