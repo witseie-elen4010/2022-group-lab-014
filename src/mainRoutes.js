@@ -163,5 +163,24 @@ mainRouter.get('/api/fetchGuessWord', function (req, res) {
   res.send(guessWord1)
 })
 
+let colArr1 = []
+
+mainRouter.post('/api/fetchColour1', function (req, res) {
+  colArr1 = req.body.colours
+})
+
+mainRouter.get('/api/sendColour1', function (req, res) {
+  res.send(colArr1)
+})
+
+let colArr2 = []
+
+mainRouter.post('/api/fetchColour2', function (req, res) {
+  colArr2 = req.body.colours
+})
+
+mainRouter.get('/api/sendColour2', function (req, res) {
+  res.send(colArr2)
+})
 
 module.exports = mainRouter
