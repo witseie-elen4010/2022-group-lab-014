@@ -86,52 +86,51 @@ function isValid (word) {
 
 let chances = 0
 
-function letterToGreen(word, copyAnswer,row){
-  for (let i = 0; i < 5; i++){
-  if (word[i]==copyAnswer[i]) {
-    const cell = document.getElementById('cell' + (i + 5 * row))
-    cell.className = 'gameGrid-item bg-success' 
-    const key = document.getElementById(word[i].toUpperCase())
-    key.className = 'col-sm btn btn-success btn btn-outline-dark'
-    copyAnswer=copyAnswer.replace(copyAnswer[i],'0')
-    console.log(copyAnswer)
+function letterToGreen (word, copyAnswer, row) {
+  for (let i = 0; i < 5; i++) {
+    if (word[i] == copyAnswer[i]) {
+      const cell = document.getElementById('cell' + (i + 5 * row))
+      cell.className = 'gameGrid-item bg-success'
+      const key = document.getElementById(word[i].toUpperCase())
+      key.className = 'col-sm btn btn-success btn btn-outline-dark'
+      copyAnswer = copyAnswer.replace(copyAnswer[i], '0')
+      console.log(copyAnswer)
+    }
   }
 }
+
+function letterToOrange (word, copyAnswer, cell, i) {
+  cell.className = 'gameGrid-item bg-warning'
+  const key = document.getElementById(word[i].toUpperCase())
+  if (key.className !== 'col-sm btn btn-success btn btn-outline-dark') {
+    key.className = 'col-sm btn btn-warning btn btn-outline-dark'
+  }
+  copyAnswer = copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])], '0')
 }
 
-function letterToOrange(word,copyAnswer,cell,i){
-    cell.className = 'gameGrid-item bg-warning'
-    const key = document.getElementById(word[i].toUpperCase())
-    if (key.className !== 'col-sm btn btn-success btn btn-outline-dark'){
-      key.className = 'col-sm btn btn-warning btn btn-outline-dark'
-    }
-    copyAnswer=copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])],'0')
-}
-
-function letterToGrey(word,copyAnswer,cell,i){
+function letterToGrey (word, copyAnswer, cell, i) {
   cell.className = 'gameGrid-item bg-secondary'
-        const key = document.getElementById(word[i].toUpperCase())
-        if (key.className !== 'col-sm btn btn-success btn btn-outline-dark'){
-          key.className = 'col-sm btn btn-secondary btn btn-outline-dark'
-        }
-      copyAnswer=copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])],'0')
+  const key = document.getElementById(word[i].toUpperCase())
+  if (key.className !== 'col-sm btn btn-success btn btn-outline-dark') {
+    key.className = 'col-sm btn btn-secondary btn btn-outline-dark'
+  }
+  copyAnswer = copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])], '0')
 }
 
 function checkRight (word, row) {
   copyAnswer = answer
   word = word.toLowerCase()
-  letterToGreen(word,copyAnswer,row)
+  letterToGreen(word, copyAnswer, row)
   for (let i = 0; i < 5; i++) {
     const cell = document.getElementById('cell' + (i + 5 * row))
-    if (cell.className !== 'gameGrid-item bg-success'){
-     if (copyAnswer.indexOf(word[i]) !== -1) {
-       letterToOrange(word,copyAnswer,cell,i)
-    }
-      else if (copyAnswer.indexOf(word[i]) === -1){
-        letterToGrey(word,copyAnswer,cell,i)
+    if (cell.className !== 'gameGrid-item bg-success') {
+      if (copyAnswer.indexOf(word[i]) !== -1) {
+        letterToOrange(word, copyAnswer, cell, i)
+      } else if (copyAnswer.indexOf(word[i]) === -1) {
+        letterToGrey(word, copyAnswer, cell, i)
+      }
     }
   }
-}
   chances = chances + 1
   let won = 0
   let name = ''
@@ -235,11 +234,11 @@ function displayStreak2 (num) {
 }
 
 document.querySelector('#closebutton').addEventListener('click', function () {
-  document.querySelector('.popup').style.display = 'none';
+  document.querySelector('.popup').style.display = 'none'
   window.location.replace('/')
 })
 document.querySelector('#closebutton2').addEventListener('click', function () {
-  document.querySelector('.popup2').style.display = 'none';
+  document.querySelector('.popup2').style.display = 'none'
   window.location.replace('/')
 })
 
@@ -259,84 +258,14 @@ b_mode.style.display = 'none'
 const hOpponent = document.getElementById('hOpponent')
 hOpponent.style.display = 'none'
 
-let answer = ''
-let allValid = []
+const answer = ''
+const allValid = []
 let copyAnswer = ''
 
-mode1.addEventListener('click', function () {
-  mode1.style.display = 'none'
-  mode2.style.display = 'none'
-  current_mode.style.display = 'none'
-  choose_play.style.display = 'none'
-  a_mode.style.display = 'initial'
-  hOpponent.style.display = 'initial'
-  const cellCount = 0
-  makeRows(6, 5)
-  makeKeyboard(firstRowKeys)
-  makeKeyboard(secondRowKeys)
-  makeKeyboard(thirdRowKeys)
-  KeysInGrid(RowOfKeys, cellCount)
-  makeOpponentGrids(6, 5, 1)
-  fetch('/api/answer')
-    .then(function (response) {
-      if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
-    })
-    .then(function (data) {
-      answer = data[0]
-      copyAnswer = answer
-    })
-    .catch(function (e) {
-      console.log(e)
-      // alert(e)
-    })
-  fetch('/api/isValid')
-    .then(function (response) {
-      if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
-    })
-    .then(function (data) {
-      allValid = allValid.concat(data)
-    })
-    .catch(function (e) {
-      console.log(e)
-      // alert(e)
-    })
+mode1.addEventListener('click', function () { // a
+  window.replace('/startRoom')
 }, false)
 
-mode2.addEventListener('click', function () {
-  mode1.style.display = 'none'
-  mode2.style.display = 'none'
-  current_mode.style.display = 'none'
-  choose_play.style.display = 'none'
-  b_mode.style.display = 'initial'
-  hOpponent.style.display = 'initial'
-  const cellCount = 0
-  makeRows(6, 5)
-  makeKeyboard(firstRowKeys)
-  makeKeyboard(secondRowKeys)
-  makeKeyboard(thirdRowKeys)
-  KeysInGrid(RowOfKeys, cellCount)
-  makeOpponentGrids(6, 5, 1)
-  fetch('/api/answer')
-    .then(function (response) {
-      if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
-    })
-    .then(function (data) {
-      answer = data[0]
-      copyAnswer = answer
-    })
-    .catch(function (e) {
-      console.log(e)
-      // alert(e)
-    })
-  fetch('/api/isValid')
-    .then(function (response) {
-      if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
-    })
-    .then(function (data) {
-      allValid = allValid.concat(data)
-    })
-    .catch(function (e) {
-      console.log(e)
-      // alert(e)
-    })
+mode2.addEventListener('click', function () { // b
+  window.replace('/startRoom')
 }, false)

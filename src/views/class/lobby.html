@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Mutiplayer Lobby</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/cdn/css/bootstrap.min.css">
+    <style>
+        #gameScreen{
+            display:none 
+        }
+    </style>
+</head>
+
+<body class="bg-info text-white">
+    <style>
+        .list-group{
+            display:inline-block;
+        }
+    </style>
+        <div id = "LobbyScreen" >
+            
+            <div class="container text-center" id="GameCode">
+                <h1>Lobby</h1>
+                <!--<h2>Game Code = 8772</h2> -->
+            </div>
+            <div class="container text-center" id="GameMode">
+                <!--<h2>Game Code = 8772</h2> -->
+            </div>
+
+            <div id ="playerList" class="container text-center pb-1">
+                <ul id ="allPlayers" class="list-group">
+                </ul>
+            </div>
+
+            <div class="container text-center">
+                <button id="startGameBtn" class="btn btn-primary btn-block btn-sm " type="Submit">Start Game</button>
+            </div>
+
+        </div>  
+    <script src="/cdn/scripts/lobby.js"></script>
+</body>
+
+</html>

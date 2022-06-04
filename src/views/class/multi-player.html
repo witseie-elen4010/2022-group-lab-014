@@ -246,9 +246,16 @@
           </div>
       </div>
 </div>
+  <form action="api/multiMode" method="post">
+    <button type="submit" id="mode1" name="mode" value="A">A</button>  
+  </form>
+  <form action="api/multiMode" method="post"> 
+    <button type="submit" id="mode2" name="mode" value="B">B</button>
+  </form>
 
-  <button type="button" id="mode1">A</button> 
-  <button type="button" id="mode2">B</button>
+  <!-- <button type="button" id="mode1" name="modeA">A</button>  
+  <button type="button" id="mode2" name="modeB">B</button> -->
+  
   <button class="button btn-dark" data-toggle="modal" data-target="#Rules">Open Rules</div>
   <script src="/cdn/scripts/multi-player.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
