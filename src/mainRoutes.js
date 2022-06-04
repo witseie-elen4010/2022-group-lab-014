@@ -72,23 +72,32 @@ mainRouter.get('/api/Codes', function (req, res) {
 })
 // This renders the mode for the game
 mainRouter.get('/api/Mode', function (req, res) {
-  res.send(JSON.stringify([mode]))
+  res.send(JSON.stringify([modes]))
 })
 
 // this selects the game mode
 mainRouter.post('/api/multiMode', function (req, res) {
-  modes = req.body.mode // change this
-  console.log(modes)
+  modes = req.body.mode
   res.redirect('/startRoom')
 })
 
 // This checks a user's code matches the necessary lobby code
 mainRouter.post('/api/userInputCode', function (req, res) {
   userIn = req.body.UserInput
-  if ((userIn === String(code)) && (multiPlayerUsers.length <= 3)) {
+  if ((userIn === String(code)) && (multiPlayerUsers.length < 3)) {
+    multiPlayerUsers.push(userdetails.username)
     res.redirect('/lobby')
   } else {
     console.log('Code invalid or Lobby is full') // Change this to an alert
+    res.redirect('/startRoom')
+  }
+})
+
+mainRouter.post('/api/createGame', function (req, res) {
+  if (multiPlayerUsers.length === 0) {
+    multiPlayerUsers.push(userdetails.username)
+    res.redirect('/lobby')
+  } else {
     res.redirect('/startRoom')
   }
 })
@@ -104,7 +113,6 @@ mainRouter.post('/api/database', function (req, res) {
             userdetails.username = result1.recordset[0].username
             userdetails.games_played = result1.recordset[0].games_played
             userdetails.games_won = result1.recordset[0].games_won
-            multiPlayerUsers.push(userdetails.username)
           } else {
             pool.query("INSERT INTO [dbo].[Users] (username, games_played, games_won) VALUES ('" + name + "', 0, 0)", function (err2, result2) {
               if (err2) throw err2
@@ -113,7 +121,6 @@ mainRouter.post('/api/database', function (req, res) {
                 userdetails.username = result3.recordset[0].username
                 userdetails.games_played = result3.recordset[0].games_played
                 userdetails.games_won = result3.recordset[0].games_won
-                multiPlayerUsers.push(userdetails.username)
               })
             })
           }

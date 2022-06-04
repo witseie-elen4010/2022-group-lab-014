@@ -12,6 +12,7 @@ fetch('/api/user')
   .then(function (data) {
     username = data.username
     played = data.games_played
+    window.localStorage.setItem('username', username)
     displayName()
   })
   .catch(function (e) {
@@ -34,7 +35,8 @@ button3.addEventListener('click', function () {
 function displayName () {
   const header = document.getElementById('header')
   const heading = document.createElement('h3')
-  const name = 'Welcome, ' + username + ', you have played ' + String(played) + ' games in your career'
+  const currUser = window.localStorage.getItem('username')
+  const name = 'Welcome, ' + currUser + ', you have played ' + String(played) + ' games in your career'
   const text = document.createTextNode(name)
   heading.appendChild(text).className = ' display-1 position-relative text-white text-center'
   header.appendChild(heading)
