@@ -24,6 +24,7 @@ function makeKeyboard (KeyRow) {
     key.type = 'button'
     key.className = 'col-sm btn btn-light btn btn-outline-dark'
     key.innerHTML = element
+    key.name = element
     newDiv.appendChild(key)
     keyboard.appendChild(newDiv)
   }
@@ -45,9 +46,32 @@ function KeysInGrid (KeyRow, cellCount) {
             cellCount = cellCount + 1
             inWord += inKey.innerHTML
           } else if (inKey.innerHTML === 'ENTER' && cellCount % 5 === 0) {
+            
             if (Math.floor(cellCount / 5) !== currentRow) {
               if (isValid(inWord)) {
                 checkRight(inWord, currentRow)
+                
+                const newData1={
+                  "guess_made": inWord
+                }
+                
+                
+                fetch ('/api/log2', {
+                  method: 'post',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(newData1)
+                })
+                .then(function(response){
+                  if(response.ok)
+                  return response.json();
+                  throw 'Failed!'
+                })
+                .catch(function(e) {
+                  alert(e)
+                })
+
                 inWord = ''
                 currentRow += 1
               } else {
@@ -102,7 +126,6 @@ function letterToGrey(word,copyAnswer,cell,i){
         }
       copyAnswer=copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])],'0')
 }
-
 function checkRight (word, row){
   copyAnswer=answer
   word = word.toLowerCase()
@@ -164,8 +187,6 @@ if(word===answer){
      .catch(function (e) {
       console.log(e)
     })
-
-  
 }
 else if (chances===6){
   document.querySelector(".popup2").style.display = "block";
@@ -185,7 +206,6 @@ else if (chances===6){
       "games_won": won
     }
 
-    
     displayStreak2(won)
     fetch('/api/gamesWon', {
       method: 'post',//specify method to use
@@ -228,7 +248,6 @@ function displayStreak2 (num) {
   const text = document.createTextNode(name)
   heading.appendChild(text).className = ' display-1 position-relative text-white text-center'
   lose.appendChild(heading)
-  
 }
 
 document.querySelector("#closebutton").addEventListener("click", function(){
@@ -238,6 +257,18 @@ document.querySelector("#closebutton").addEventListener("click", function(){
 document.querySelector("#closebutton2").addEventListener("click", function(){
   document.querySelector(".popup2").style.display = "none";
   window.location.replace('/')
+});
+document.querySelector("#actionlog").addEventListener("click", function(){
+  document.querySelector(".popup3").style.display = "initial";
+});
+document.querySelector("#closebutton3").addEventListener("click", function(){
+  document.querySelector(".popup3").style.display = "none";
+});
+document.querySelector("#closebutton4").addEventListener("click", function(){
+  document.querySelector(".popup4").style.display = "none";
+});
+document.querySelector("#actionlog1").addEventListener("click", function(){
+  document.querySelector(".popup4").style.display = "initial";
 });
 
 const firstRowKeys = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']

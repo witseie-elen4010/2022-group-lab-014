@@ -68,10 +68,161 @@ mainRouter.post('/api/gamesWon', function (req, res) {
       return pool.request()
         .query("UPDATE [dbo].[Users] SET games_played=" + String(played) + ", games_won=" + String(won) + "WHERE username='" + name + "';", function (err, result) {
           if (err) throw err
-          
+          res.redirect('/single')
         })
     })
 })
 
-
 module.exports = mainRouter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mainRouter.post('/api/log', function (req, res) {
+  const logger = req.body.singlePlayButton
+  db.pools
+    .then((pool) => {
+      return pool.request()
+        .query("CREATE TABLE [dbo].[ActionLog] (username varchar(255), guess_made varchar(255), action_type varchar(255), time_of_action varchar(255));", function (err, result) {
+          if (err) throw err  
+          res.redirect('/single')
+        })
+    })
+})
+
+mainRouter.post('/api/log1', function (req, res) {
+  const close_logger_w = req.body.closebutton3
+  const close_logger_l = req.body.closebutton4
+  db.pools
+    .then((pool) => {
+      return pool.request()
+        .query("DROP TABLE [dbo].[ActionLog]", function (err, result) {
+          if (err) throw err   
+        })
+    })
+})
+
+mainRouter.post('/api/log2', function (req, res) {
+  const word = req.body.guess_made
+  db.pools
+    .then((pool) => {
+      return pool.request()
+        .query("INSERT INTO [dbo].[ActionLog] (username, guess_made, action_type, time_of_action) VALUES ('rachel', '"+ word +"', 'guess', '20 May 2020')")  
+    })
+})
+
+

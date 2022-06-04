@@ -13,16 +13,43 @@
     <div id="win" class="popup">
       <h2>YOU HAVE WON!</h2>
       <button id="closebutton">Close</button>
-    </div>
-    <div id="lose" class="popup2">
-      <h2>YOU LOST, SUCKERRRRR</h2>
-      <button id="closebutton2">Close</button>
-    </div>
+      <button id="actionlog" name = "actionlog" type = "submit">Action Log</button>
+      <form action="api/log1" method="post">
+      <div id="log" class="popup3">
+          <button id="closebutton3" name = "closebutton3">Close</button>
+        </div>
+      </form>
+      </div>
+      <div id="lose" class="popup2">
+        <h2>YOU LOST, SUCKERRRRR</h2>
+        <button id="closebutton2">Close</button>
+        <button id="actionlog1" name = "actionlog1" type = "submit">Action Log</button>
+        <form action="api/log1" method="post">
+        <div id="log" class="popup4">
+          <button id="closebutton4" name = "closebutton4">Close</button>
+        </div>
+        </form>
+      </div>
     <style>
         body{
           background-color: cornflowerblue;
         }
         .popup{
+            background-color: black;
+            color:white;
+            width: 496px;
+            height: 230px;
+            padding: 30px 40px;
+            position: absolute;
+            transform: translate(-50%,-70%); 
+            left: 50%;
+            top: 50%;
+            border-radius: 8px;
+            display: none;
+            font-family: "Poppins",sans-serif;
+            text-align: center;
+        }
+        .popup3{
             background-color: black;
             color:white;
             width: 496px;
@@ -82,8 +109,59 @@
         .popup2 h2{
             margin-top: -20px;
           }
-
-
+          .actionlog{
+            display: block;
+            position:fixed;
+            top: 0;
+            background-color: white;
+            font-size: 30px;
+            color: black;
+            width: 40px;
+            height: 40px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        .actionlog1{
+            display: block;
+            position:fixed;
+            top: 0;
+            background-color: white;
+            font-size: 30px;
+            color: black;
+            width: 40px;
+            height: 40px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        .popup4{
+            background-color: black;
+            color:white;
+            width: 496px;
+            height: 230px;
+            padding: 30px 40px;
+            position: absolute;
+            transform: translate(-50%,-70%); 
+            left: 50%;
+            top: 50%;
+            border-radius: 8px;
+            display: none;
+            font-family: "Poppins",sans-serif;
+            text-align: center;
+        }
+        .closebutton3{
+            display: block;
+            position:relative;
+            background-color: white;
+            font-size: 30px;
+            color: black;
+            width: 40px;
+            height: 40px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
 
         h1{
           position: absolute;
@@ -189,7 +267,7 @@
           </div>
       </div>
   </div>
-  <button type="button" id="play_game">Play</button> 
+    <button type="submit" id="play_game" name = "play_game">Play</button>
   <button class="button btn-dark" data-toggle="modal" data-target="#Rules">Open Rules</div>
     <!-- <div>
         <button  class="button btn-light" id="return" type="submit">Return</button>
