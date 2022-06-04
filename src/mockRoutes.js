@@ -15,6 +15,7 @@ const multiPlayerUsers = []
 const code = lobbycode.gameCode(Math.floor(Math.random() * 4))
 let userIn = 0
 let modes = 'x'
+let guessWord1 = ''
 
 mainRouter.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'views', 'class', 'index.html'))
@@ -94,6 +95,18 @@ mainRouter.post('/api/createGame', function (req, res) {
 
 mainRouter.get('/api/multiUsers', function (req, res) {
   res.send(JSON.stringify(multiPlayerUsers))
+})
+
+mainRouter.post('/api/guessWord', function (req, res) {
+  guessWord1 = req.body.guessWord
+  if (dict.validWord(guessWord1)) {
+    res.redirect('/observer')
+  } else {
+    res.redirect('/guessWord')
+  }
+})
+mainRouter.get('/api/fetchGuessWord', function (req, res) {
+  res.send(guessWord1)
 })
 
 module.exports = mainRouter
