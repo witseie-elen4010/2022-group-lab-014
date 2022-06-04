@@ -17,6 +17,14 @@
     <h3 id = "a_mode">Mode A: Playing with my own word</h3>
     <h3 id = "b_mode">Mode B: Playing with a random word</h3>
     <h2 id="hOpponent" position="absolute" right="10px" top = "10px">Opponents:</h2>
+    <div id="win" class="popup">
+      <h2>YOU HAVE WON!</h2>
+      <button id="closebutton">Close</button>
+    </div>
+    <div id="lose" class="popup2">
+      <h2>YOU LOST, SUCKERRRRR</h2>
+      <button id="closebutton2">Close</button>
+    </div>
     <style>
         body{
           background-color: cornflowerblue;
@@ -130,6 +138,66 @@
                 background-color: whitesmoke;
                 width: 496px
             } 
+            .popup{
+              background-color: black;
+              color:white;
+              width: 496px;
+              height: 230px;
+              padding: 30px 40px;
+              position: absolute;
+              transform: translate(-50%,-70%); 
+              left: 50%;
+              top: 50%;
+              border-radius: 8px;
+              display: none;
+              font-family: "Poppins",sans-serif;
+              text-align: center;
+          }
+          .closebutton{
+            display: block;
+            position:relative;
+            background-color: white;
+            font-size: 30px;
+            color: black;
+            width: 40px;
+            height: 40px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        .popup h2{
+            margin-top: -20px;
+          }
+          .popup2{
+            background-color: black;
+            color:white;
+            width: 496px;
+            height: 230px;
+            padding: 30px 40px;
+            position: absolute;
+            transform: translate(-50%,-70%); 
+            left: 50%;
+            top: 50%;
+            border-radius: 8px;
+            display: none;
+            font-family: "Poppins",sans-serif;
+            text-align: center;
+        }
+        .closebutton2{
+            display: block;
+            position:relative;
+            background-color: white;
+            font-size: 30px;
+            color: black;
+            width: 40px;
+            height: 40px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        .popup2 h2{
+            margin-top: -20px;
+          }
     </style>
     
 <div class="modalContainer">
@@ -178,9 +246,16 @@
           </div>
       </div>
 </div>
+  <form action="api/multiMode" method="post">
+    <button type="submit" id="mode1" name="mode" value="A">A</button>  
+  </form>
+  <form action="api/multiMode" method="post"> 
+    <button type="submit" id="mode2" name="mode" value="B">B</button>
+  </form>
 
-  <button type="button" id="mode1">A</button> 
-  <button type="button" id="mode2">B</button>
+  <!-- <button type="button" id="mode1" name="modeA">A</button>  
+  <button type="button" id="mode2" name="modeB">B</button> -->
+  
   <button class="button btn-dark" data-toggle="modal" data-target="#Rules">Open Rules</div>
   <script src="/cdn/scripts/multi-player.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

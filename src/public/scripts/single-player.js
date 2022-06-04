@@ -72,37 +72,50 @@ function isValid (word) {
 }
 var chances=0;
 
-function checkRight (word, row){
-  copyAnswer=answer
-  word = word.toLowerCase()
+function letterToGreen(word, copyAnswer,row){
   for (let i = 0; i < 5; i++){
-    if (word[i]==copyAnswer[i]) {
-      const cell = document.getElementById('cell' + (i + 5 * row))
-      cell.className = 'gameGrid-item bg-success' 
-      const key = document.getElementById(word[i].toUpperCase())
-      key.className = 'col-sm btn btn-success btn btn-outline-dark'
-      copyAnswer=copyAnswer.replace(copyAnswer[i],'0')
-      console.log(copyAnswer)
-    }
-  }
-  for (let i = 0; i < 5; i++) {
+  if (word[i]==copyAnswer[i]) {
     const cell = document.getElementById('cell' + (i + 5 * row))
-    if (cell.className !== 'gameGrid-item bg-success'){
-      if (copyAnswer.indexOf(word[i]) !== -1) {
-        cell.className = 'gameGrid-item bg-warning'
-        const key = document.getElementById(word[i].toUpperCase())
-        if (key.className !== 'col-sm btn btn-success btn btn-outline-dark'){
-          key.className = 'col-sm btn btn-warning btn btn-outline-dark'
-        }
-        copyAnswer=copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])],'0')
+    cell.className = 'gameGrid-item bg-success' 
+    const key = document.getElementById(word[i].toUpperCase())
+    key.className = 'col-sm btn btn-success btn btn-outline-dark'
+    copyAnswer=copyAnswer.replace(copyAnswer[i],'0')
+    console.log(copyAnswer)
+  }
+}
+}
+
+function letterToOrange(word,copyAnswer,cell,i){
+    cell.className = 'gameGrid-item bg-warning'
+    const key = document.getElementById(word[i].toUpperCase())
+    if (key.className !== 'col-sm btn btn-success btn btn-outline-dark'){
+      key.className = 'col-sm btn btn-warning btn btn-outline-dark'
     }
-      else if (copyAnswer.indexOf(word[i]) === -1){ 
-      cell.className = 'gameGrid-item bg-secondary'
+    copyAnswer=copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])],'0')
+}
+
+function letterToGrey(word,copyAnswer,cell,i){
+  cell.className = 'gameGrid-item bg-secondary'
         const key = document.getElementById(word[i].toUpperCase())
         if (key.className !== 'col-sm btn btn-success btn btn-outline-dark'){
           key.className = 'col-sm btn btn-secondary btn btn-outline-dark'
         }
       copyAnswer=copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])],'0')
+}
+
+function checkRight (word, row){
+  copyAnswer=answer
+  word = word.toLowerCase()
+  letterToGreen(word,copyAnswer,row)
+
+  for (let i = 0; i < 5; i++) {
+    const cell = document.getElementById('cell' + (i + 5 * row))
+    if (cell.className !== 'gameGrid-item bg-success'){
+     if (copyAnswer.indexOf(word[i]) !== -1) {
+       letterToOrange(word,copyAnswer,cell,i)
+    }
+      else if (copyAnswer.indexOf(word[i]) === -1){
+        letterToGrey(word,copyAnswer,cell,i)
     }
   }
 }
@@ -122,8 +135,6 @@ if(word===answer){
       name=data.username
       played=data.games_played+1
 
-      
-      
       const newData={
         "username": name,
         "games_played": played,
@@ -220,14 +231,14 @@ function displayStreak2 (num) {
   
 }
 
-
 document.querySelector("#closebutton").addEventListener("click", function(){
   document.querySelector(".popup").style.display = "none";
+    window.location.replace('/')
 });
 document.querySelector("#closebutton2").addEventListener("click", function(){
   document.querySelector(".popup2").style.display = "none";
+  window.location.replace('/')
 });
-
 
 const firstRowKeys = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
 const secondRowKeys = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L']
