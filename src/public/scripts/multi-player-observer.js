@@ -38,16 +38,24 @@ const hsingle = document.getElementById("hsingle");
 hOpponent1.style.display = 'none'
 hOpponent2.style.display = 'none'
 hsingle.style.display = 'none'
-if (num_of_players==3){
-  makeRows2(6, 5);
-  makeRows(6, 5);
-  hOpponent1.style.display = 'initial'
-  hOpponent2.style.display = 'initial'
-  hsingle.style.display = 'none'
-}
-else if(num_of_players==2){
-  makeRows3(6, 5);
-  hOpponent1.style.display = 'none'
-hOpponent2.style.display = 'none'
-  hsingle.style.display = 'initial'
-}
+
+// let word=getElementById(id='word')
+// fetch('/api/fetchGuessWord')
+//     .then(function (response) {
+//       if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
+//     })
+//     .then(function (data) {
+//       word = data
+//     })
+//     .catch(function (e) {
+//       console.log(e)
+//     })
+    
+    if (num_of_players==3){
+        makeRows2(6, 5);
+        makeRows(6, 5);
+        hOpponent1.style.display = 'initial'
+        hOpponent2.style.display = 'initial'
+        hsingle.style.display = 'none'
+      }
+
