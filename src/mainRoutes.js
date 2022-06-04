@@ -12,6 +12,7 @@ const userdetails = {
 }
 
 const multiPlayerUsers = []
+let game_logged_details = []
 
 const code = lobbycode.gameCode(Math.floor(Math.random() * 4))
 let userIn = 0
@@ -133,125 +134,6 @@ mainRouter.get('/api/multiUsers', function (req, res) {
   res.send(JSON.stringify(multiPlayerUsers))
 })
 
-module.exports = mainRouter
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 mainRouter.post('/api/log', function (req, res) {
   const logger = req.body.singlePlayButton
   db.pools
@@ -265,8 +147,16 @@ mainRouter.post('/api/log', function (req, res) {
 })
 
 mainRouter.post('/api/log1', function (req, res) {
-  const close_logger_w = req.body.closebutton3
-  const close_logger_l = req.body.closebutton4
+  db.pools
+    .then((pool) => {
+      return pool.request()
+        .query("DROP TABLE [dbo].[ActionLog]", function (err, result) {
+          if (err) throw err   
+        })
+    })
+})
+
+mainRouter.post('/api/log_lose', function (req, res) {
   db.pools
     .then((pool) => {
       return pool.request()
@@ -278,11 +168,24 @@ mainRouter.post('/api/log1', function (req, res) {
 
 mainRouter.post('/api/log2', function (req, res) {
   const word = req.body.guess_made
+  const valid_word = req.body.valid
+  const date = req.body.date_time
+  let temp = {
+    username: userdetails.username,
+    guess_made: word,
+    action_type: valid_word,
+    time_of_action: date
+  }
+  game_logged_details.push(temp)
   db.pools
     .then((pool) => {
       return pool.request()
-        .query("INSERT INTO [dbo].[ActionLog] (username, guess_made, action_type, time_of_action) VALUES ('rachel', '"+ word +"', 'guess', '20 May 2020')")  
+        .query("INSERT INTO [dbo].[ActionLog] (username, guess_made, action_type, time_of_action) VALUES ('" + userdetails.username + "', '"+ word +"', '" + valid_word + "', '" + date + "')")  
     })
 })
 
+mainRouter.get('/api/log3', function (req,res){
+  res.send(JSON.stringify(game_logged_details))
+})
 
+module.exports = mainRouter
