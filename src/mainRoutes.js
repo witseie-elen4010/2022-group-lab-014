@@ -27,7 +27,9 @@ mainRouter.get('/rules', function (req, res) {
 mainRouter.get('/guessWord', function (req, res) {
   res.sendFile(path.join(__dirname, 'views', 'class', 'multi-player-guessWord.html'))
 })
-
+mainRouter.get('/observer', function (req, res) {
+  res.sendFile(path.join(__dirname, 'views', 'class', 'multi-player-observer.html'))
+})
 mainRouter.get('/api/answer', function (req, res) {
   res.send(JSON.stringify([dict.todayWord(Math.floor(Math.random() * 2309))]))
 })
@@ -81,12 +83,10 @@ mainRouter.post('/api/gamesWon', function (req, res) {
 mainRouter.post('/api/guessWord', function (req, res) {
   guessWord1 = req.body.guessWord
   if (dict.validWord(guessWord1)) {
-    res.redirect('/')
+    res.redirect('/observer')
   } else {
     res.redirect('/guessWord')
   }
-  // console.log(guessWord1)
-  // console.log(guessWord1)
 })
 mainRouter.get('/api/fetchGuessWord', function (req, res) {
   res.send(guessWord1)
