@@ -85,6 +85,37 @@ function KeysInGrid (KeyRow, cellCount) {
     }
     count = count + 1
   }
+  document.addEventListener('keydown', function(event) {
+    changeColour()
+    oppWon()
+    if ((event.key !== 'Backspace')) {
+      if (Math.floor(cellCount / 5) === currentRow && event.key!== 'Enter') {
+        const cell = document.getElementById('cell' + (cellCount))
+        cell.innerHTML = event.key.toUpperCase()
+        cellCount = cellCount + 1
+        inWord += event.key
+      } else if (event.key === 'Enter' && cellCount % 5 === 0) {
+        if (Math.floor(cellCount / 5) !== currentRow) {
+          if (isValid(inWord)) {
+            checkRight(inWord, currentRow)
+
+            sendGuess('valid')
+            inWord = ''
+            currentRow += 1
+            sendColours()
+          } else {
+            sendGuess('not valid')
+            alert('Your word is invalid.')
+          }
+        }
+      }
+    } else if (event.key === 'Backspace' && inWord.length !==0) {
+      cellCount = cellCount - 1
+      document.getElementById('cell' + cellCount).innerHTML = ''
+      inWord = inWord.slice(0, -1)
+    }
+
+}) 
 };
 
 function isValid (word) {
