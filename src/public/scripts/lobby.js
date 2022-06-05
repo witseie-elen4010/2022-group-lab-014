@@ -83,7 +83,7 @@ fetch('/api/multiUsers')
         if (index === 0) {
           window.location.replace('/guessWord')
         } else {
-          window.location.replace('/')
+          window.location.replace('/setWord')
         }
       })
     }

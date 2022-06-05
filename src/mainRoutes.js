@@ -55,6 +55,9 @@ mainRouter.get('/startRoom', function (req, res) {
 mainRouter.get('/lobby', function (req, res) {
   res.sendFile(path.join(__dirname, 'views', 'class', 'lobby.html'))
 })
+mainRouter.get('/setWord', function (req, res) {
+  res.sendFile(path.join(__dirname, 'views', 'class', 'multi-player-userSetWord.html'))
+})
 
 mainRouter.get('/api/answer', function (req, res) {
   let date = new Date()
@@ -163,7 +166,7 @@ mainRouter.post('/api/guessWord', function (req, res) {
   }
 })
 mainRouter.get('/api/fetchGuessWord', function (req, res) {
-  res.send(guessWord1)
+  res.send(JSON.stringify(guessWord1))
 })
 
 let colArr1 = Array(30).fill('opp2Grid-item')
