@@ -1,7 +1,7 @@
 const container2 = document.getElementById('container2')
 const container = document.getElementById('container')
 const num_of_players = 2
-const allLogs = []
+
 function makeRows (row, col) {
   container.style.setProperty('--grid-row', row)
   container.style.setProperty('--grid-col', col)
