@@ -1,5 +1,6 @@
 const container2 = document.getElementById('container2')
 const container = document.getElementById('container')
+const hOpponent = document.getElementById('hOpponent2')
 const num_of_players = 2
 
 function makeRows (row, col) {
@@ -277,6 +278,14 @@ fetch('/api/multiUsers')
   })
   .then(function (data) {
     index = data.indexOf(window.localStorage.getItem('username'))
+
+    if (index === 1) {
+      hOpponent.innerHTML = data[index + 1]
+      console.log(data[index + 1])
+    } else if (index === 2) {
+      hOpponent.innerHTML = data[index - 1]
+      console.log(data[index + 1])
+    }
   })
   .catch(function (e) {
     console.log(e)
