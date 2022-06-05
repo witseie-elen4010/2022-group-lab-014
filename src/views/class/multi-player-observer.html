@@ -3,9 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <h1 id="current_mode">You are the Observer</h1>
+  <div >
+    <h1 id="current_mode">You are the Observer</h1>
+    <button class="btn btn-primary btn-block btn-lg" type="Submit" id="refresh" name="refresh">REFRESH GRID COLOURS</button>
+  </div>
+
   <h2 id="hOpponent1"></h2>
   <h2 id="hOpponent2"></h2> 
+
     <link rel="stylesheet" href="/cdn/css/bootstrap.min.css">
 </head>
 <body>
@@ -20,6 +25,14 @@
           left:570px;
           top:50px;
           color:blue;
+        }
+        #refresh{
+          position: relative;
+          left:650px;
+          top:50px;
+          color:white;
+          background-color: black;
+
         }
         #hOpponent1{
           position: absolute;

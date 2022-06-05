@@ -1,4 +1,4 @@
-
+let allLogs = []
 function makeRows (row, col) {
   container.style.setProperty('--grid-row', row)
   container.style.setProperty('--grid-col', col)
@@ -48,14 +48,38 @@ function KeysInGrid (KeyRow, cellCount) {
             if (Math.floor(cellCount / 5) !== currentRow) {
               if (isValid(inWord)) {
                 checkRight(inWord, currentRow)
+
+                let currTime = new Date()
+
+                const guess = {
+                  "username": window.localStorage.getItem('username'),
+                  "guess": inWord,
+                  "validGuess": "valid",
+                  "time": currTime.toLocaleString()
+                }
+
+                allLogs.push(guess)
+
                 inWord = ''
                 currentRow += 1
               } else {
+
+                let currTime = new Date()
+
+                const guess = {
+                  "username": window.localStorage.getItem('username'),
+                  "guess": inWord,
+                  "validGuess": "valid",
+                  "time": currTime.toLocaleString()
+                }
+
+                allLogs.push(guess)
+                
                 alert('Your word is invalid.')
               }
             }
           }
-        } else if (inKey.innerHTML === 'DELETE' && cellCount > 0) {
+        } else if (inKey.innerHTML === 'DELETE' && inWord.length !==0) {
           cellCount = cellCount - 1
           document.getElementById('cell' + cellCount).innerHTML = ''
           inWord = inWord.slice(0, -1)
@@ -67,63 +91,72 @@ function KeysInGrid (KeyRow, cellCount) {
 };
 
 function isValid (word) {
-  console.log(answer)
   return allValid.includes(word.toLowerCase())
 }
 let chances = 0
-
-function letterToGreen (word, copyAnswer, row) {
-  for (let i = 0; i < 5; i++) {
-    if (word[i] === copyAnswer[i]) {
-      const cell = document.getElementById('cell' + (i + 5 * row))
-      cell.className = 'gameGrid-item bg-success'
-      const key = document.getElementById(word[i].toUpperCase())
-      key.className = 'col-sm btn btn-success btn btn-outline-dark'
-      copyAnswer = copyAnswer.replace(copyAnswer[i], '0')
-      console.log(copyAnswer)
-    }
-  }
-}
-
-function letterToOrange (word, copyAnswer, cell, i) {
-  cell.className = 'gameGrid-item bg-warning'
-  const key = document.getElementById(word[i].toUpperCase())
-  if (key.className !== 'col-sm btn btn-success btn btn-outline-dark') {
-    key.className = 'col-sm btn btn-warning btn btn-outline-dark'
-  }
-  copyAnswer = copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])], '0')
-}
-
-function letterToGrey (word, copyAnswer, cell, i) {
-  cell.className = 'gameGrid-item bg-secondary'
-  const key = document.getElementById(word[i].toUpperCase())
-  if (key.className !== 'col-sm btn btn-success btn btn-outline-dark') {
-    key.className = 'col-sm btn btn-secondary btn btn-outline-dark'
-  }
-  copyAnswer = copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])], '0')
-}
-
 function checkRight (word, row) {
   copyAnswer = answer
   word = word.toLowerCase()
-  letterToGreen(word, copyAnswer, row)
-
-  for (let i = 0; i < 5; i++) {
-    const cell = document.getElementById('cell' + (i + 5 * row))
-    if (cell.className !== 'gameGrid-item bg-success') {
-      if (copyAnswer.indexOf(word[i]) !== -1) {
-        letterToOrange(word, copyAnswer, cell, i)
-      } else if (copyAnswer.indexOf(word[i]) === -1) {
-        letterToGrey(word, copyAnswer, cell, i)
-      }
+  for (let i = 0; i < 5; i++){
+    if (word[i]==copyAnswer[i]) {
+      const cell = document.getElementById('cell' + (i + 5 * row))
+      cell.className = 'gameGrid-item bg-success' 
+      const key = document.getElementById(word[i].toUpperCase())
+      key.className = 'col-sm btn btn-success btn btn-outline-dark'
+      copyAnswer=copyAnswer.replace(copyAnswer[i],'0')
+      console.log(copyAnswer)
     }
   }
+  for (let i = 0; i < 5; i++) {
+    const cell = document.getElementById('cell' + (i + 5 * row))
+    if (cell.className !== 'gameGrid-item bg-success'){
+      if (copyAnswer.indexOf(word[i]) !== -1) {
+        cell.className = 'gameGrid-item bg-warning'
+        const key = document.getElementById(word[i].toUpperCase())
+        if (key.className !== 'col-sm btn btn-success btn btn-outline-dark'){
+          key.className = 'col-sm btn btn-warning btn btn-outline-dark'
+        }
+        copyAnswer=copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])],'0')
+    }
+      else if (copyAnswer.indexOf(word[i]) === -1){ 
+      cell.className = 'gameGrid-item bg-secondary'
+        const key = document.getElementById(word[i].toUpperCase())
+        if (key.className !== 'col-sm btn btn-success btn btn-outline-dark'){
+          key.className = 'col-sm btn btn-secondary btn btn-outline-dark'
+        }
+      copyAnswer=copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])],'0')
+    }
+  }
+}
   chances = chances + 1
   let won = 0
 
   let played = 0
   if (word === answer) {
     document.querySelector('.popup').style.display = 'block'
+    let currTime = new Date()
+
+    const guess = {
+      "username": window.localStorage.getItem('username'),
+      "guess": word.toUpperCase(),
+      "validGuess": "valid",
+      "time": currTime.toLocaleString()
+    }
+
+    allLogs.push(guess)
+
+    allLogs.forEach(element => {
+      const loggedpopup = document.getElementById('win')
+      const par = document.createElement('p')
+      const data1 = element.username
+      const data2 = element.guess
+      const data3 = element.validGuess
+      const data4 = element.time
+      const text = document.createTextNode(data1 + ' ' + data2 + ' ' + data3 + ' ' + data4)
+      par.appendChild(text).className = 'display-1 position-relative text-white text-center'
+      loggedpopup.appendChild(par)
+    })
+    allLogs = []
     fetch('/api/user')
       .then(function (response) {
         if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
@@ -162,6 +195,28 @@ function checkRight (word, row) {
       })
   } else if (chances === 6) {
     document.querySelector('.popup2').style.display = 'block'
+    let currTime = new Date()
+
+    const guess = {
+      "username": window.localStorage.getItem('username'),
+      "guess": word.toUpperCase(),
+      "validGuess": "valid",
+      "time": currTime.toLocaleString()
+    }
+
+    allLogs.push(guess)
+    allLogs.forEach(element => {
+      const loggedpopup = document.getElementById('lose')
+      const par = document.createElement('p')
+      const data1 = element.username
+      const data2 = element.guess
+      const data3 = element.validGuess
+      const data4 = element.time
+      const text = document.createTextNode(data1 + ' ' + data2 + ' ' + data3 + ' ' + data4)
+      par.appendChild(text).className = 'display-1 position-relative text-white text-center'
+      loggedpopup.appendChild(par)
+    })
+    allLogs = []
     fetch('/api/user')
       .then(function (response) {
         if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
