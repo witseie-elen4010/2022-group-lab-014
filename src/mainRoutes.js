@@ -57,7 +57,10 @@ mainRouter.get('/lobby', function (req, res) {
 })
 
 mainRouter.get('/api/answer', function (req, res) {
-  res.send(JSON.stringify([dict.todayWord(Math.floor(Math.random() * 2309))]))
+  let date = new Date()
+  date.setHours(0,0,0,0)
+  date = parseInt(date / 1000)
+  res.send(JSON.stringify([dict.todayWord(Math.floor(date % 2309))]))
 })
 
 mainRouter.get('/api/isValid', function (req, res) {
