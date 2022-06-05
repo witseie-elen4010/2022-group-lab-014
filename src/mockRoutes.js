@@ -46,7 +46,10 @@ mainRouter.get('/lobby', function (req, res) {
 })
 
 mainRouter.get('/api/answer', function (req, res) {
-  res.send(JSON.stringify([dict.todayWord(Math.floor(Math.random() * 2309))]))
+  let date = new Date()
+  date.setHours(0,0,0,0)
+  date = parseInt(date / 1000)
+  res.send(JSON.stringify([dict.todayWord(Math.floor(date % 2309))]))
 })
 
 mainRouter.get('/api/isValid', function (req, res) {
@@ -107,6 +110,26 @@ mainRouter.post('/api/guessWord', function (req, res) {
 })
 mainRouter.get('/api/fetchGuessWord', function (req, res) {
   res.send(guessWord1)
+})
+
+let colArr1 = Array(30).fill('opp2Grid-item')
+
+mainRouter.post('/api/fetchColour1', function (req, res) {
+  colArr1 = req.body.colours
+})
+
+mainRouter.get('/api/sendColour1', function (req, res) {
+  res.send(colArr1)
+})
+
+let colArr2 = Array(30).fill('opp2Grid-item')
+
+mainRouter.post('/api/fetchColour2', function (req, res) {
+  colArr2 = req.body.colours
+})
+
+mainRouter.get('/api/sendColour2', function (req, res) {
+  res.send(colArr2)
 })
 
 module.exports = mainRouter
