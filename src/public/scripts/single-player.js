@@ -1,4 +1,4 @@
-
+let allLogs = []
 function makeRows (row, col) {
   container.style.setProperty('--grid-row', row)
   container.style.setProperty('--grid-col', col)
@@ -48,9 +48,33 @@ function KeysInGrid (KeyRow, cellCount) {
             if (Math.floor(cellCount / 5) !== currentRow) {
               if (isValid(inWord)) {
                 checkRight(inWord, currentRow)
+
+                let currTime = new Date()
+
+                const guess = {
+                  "username": window.localStorage.getItem('username'),
+                  "guess": inWord,
+                  "validGuess": "valid",
+                  "time": currTime.toLocaleString()
+                }
+
+                allLogs.push(guess)
+
                 inWord = ''
                 currentRow += 1
               } else {
+
+                let currTime = new Date()
+
+                const guess = {
+                  "username": window.localStorage.getItem('username'),
+                  "guess": inWord,
+                  "validGuess": "valid",
+                  "time": currTime.toLocaleString()
+                }
+
+                allLogs.push(guess)
+                
                 alert('Your word is invalid.')
               }
             }
@@ -67,7 +91,6 @@ function KeysInGrid (KeyRow, cellCount) {
 };
 
 function isValid (word) {
-  console.log(answer)
   return allValid.includes(word.toLowerCase())
 }
 let chances = 0
@@ -80,7 +103,6 @@ function letterToGreen (word, copyAnswer, row) {
       const key = document.getElementById(word[i].toUpperCase())
       key.className = 'col-sm btn btn-success btn btn-outline-dark'
       copyAnswer = copyAnswer.replace(copyAnswer[i], '0')
-      console.log(copyAnswer)
     }
   }
 }
@@ -124,6 +146,29 @@ function checkRight (word, row) {
   let played = 0
   if (word === answer) {
     document.querySelector('.popup').style.display = 'block'
+    let currTime = new Date()
+
+    const guess = {
+      "username": window.localStorage.getItem('username'),
+      "guess": word,
+      "validGuess": "valid",
+      "time": currTime.toLocaleString()
+    }
+
+    allLogs.push(guess)
+
+    allLogs.forEach(element => {
+      const loggedpopup = document.getElementById('win')
+      const par = document.createElement('p')
+      const data1 = element.username
+      const data2 = element.guess
+      const data3 = element.validGuess
+      const data4 = element.time
+      const text = document.createTextNode(data1 + ' ' + data2 + ' ' + data3 + ' ' + data4)
+      par.appendChild(text).className = 'display-1 position-relative text-white text-center'
+      loggedpopup.appendChild(par)
+    })
+    allLogs = []
     fetch('/api/user')
       .then(function (response) {
         if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
@@ -162,6 +207,28 @@ function checkRight (word, row) {
       })
   } else if (chances === 6) {
     document.querySelector('.popup2').style.display = 'block'
+    let currTime = new Date()
+
+    const guess = {
+      "username": window.localStorage.getItem('username'),
+      "guess": word.toUpperCase(),
+      "validGuess": "valid",
+      "time": currTime.toLocaleString()
+    }
+
+    allLogs.push(guess)
+    allLogs.forEach(element => {
+      const loggedpopup = document.getElementById('lose')
+      const par = document.createElement('p')
+      const data1 = element.username
+      const data2 = element.guess
+      const data3 = element.validGuess
+      const data4 = element.time
+      const text = document.createTextNode(data1 + ' ' + data2 + ' ' + data3 + ' ' + data4)
+      par.appendChild(text).className = 'display-1 position-relative text-white text-center'
+      loggedpopup.appendChild(par)
+    })
+    allLogs = []
     fetch('/api/user')
       .then(function (response) {
         if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
