@@ -55,6 +55,9 @@ mainRouter.get('/startRoom', function (req, res) {
 mainRouter.get('/lobby', function (req, res) {
   res.sendFile(path.join(__dirname, 'views', 'class', 'lobby.html'))
 })
+mainRouter.get('/setWord', function (req, res) {
+  res.sendFile(path.join(__dirname, 'views', 'class', 'multi-player-userSetWord.html'))
+})
 
 mainRouter.get('/api/answer', function (req, res) {
   let date = new Date()
