@@ -419,7 +419,7 @@ function iwin () {
   const winner = {
     wins: 'true'
   }
-  if (index === 0) {
+  if (index === 1) {
     fetch('/api/postWin1', {
       method: 'post', // specify method to use
       headers: { // headers to specify the type of data needed
@@ -434,7 +434,7 @@ function iwin () {
       .catch(function (e) {
         alert(e)
       })
-  } else if (index === 1) {
+  } else if (index === 2) {
     fetch('/api/postWin2', {
       method: 'post', // specify method to use
       headers: { // headers to specify the type of data needed
@@ -453,7 +453,7 @@ function iwin () {
 }
 
 function oppWon () {
-  if (index === 0) {
+  if (index === 1) {
     fetch('/api/getWin2')
       .then(function (response) {
         if (response.ok) { return response.json() } else { throw 'Failed to fetch' }
@@ -472,7 +472,7 @@ function oppWon () {
       .catch(function (e) {
         alert(e)
       })
-  } else if (index === 1) {
+  } else if (index === 2) {
     fetch('/api/getWin1')
       .then(function (response) {
         if (response.ok) { return response.json() } else { throw 'Failed to fetch' }
