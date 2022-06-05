@@ -1,6 +1,6 @@
 const container2 = document.getElementById("container2");  
 const container = document.getElementById("container");  
-  let num_of_players=2;
+let num_of_players=2;
 
   function makeRows(row, col) {
     container.style.setProperty('--grid-row', row);
@@ -44,7 +44,6 @@ const container = document.getElementById("container");
   };
   
   let inWord = ''
-  
   function KeysInGrid (KeyRow, cellCount) {
     let count = 0
     let currentRow = 0
@@ -137,8 +136,6 @@ const container = document.getElementById("container");
         won=data.games_won+1
         name=data.username
         played=data.games_played+1
-  
-        
         
         const newData={
           "username": name,
@@ -169,8 +166,6 @@ const container = document.getElementById("container");
        .catch(function (e) {
         console.log(e)
       })
-  
-    
   }
   else if (chances===6){
     document.querySelector(".popup2").style.display = "block";
@@ -190,7 +185,6 @@ const container = document.getElementById("container");
         "games_won": won
       }
   
-      
       displayStreak2(won)
       fetch('/api/gamesWon', {
         method: 'post',//specify method to use

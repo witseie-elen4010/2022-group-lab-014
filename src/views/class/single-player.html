@@ -6,10 +6,13 @@
     <title>Single-Player-mode</title>
     <link rel="stylesheet" href="/cdn/css/bootstrap.min.css"> 
   </head>
-  <body>
+  <body class="bg-dark text-white">
+    <h2 id = "current_mode" class = "display-1 position-relative text-secondary vertical-align-middle text-center headings-font-family: monospace Menlo"> single player mode</h2>
+    <div class = "d-grid gap-4 p-4 col-4 mx-auto ">
+      <button type="button " class = "btn btn-dark btn-block btn-lg border border-3 border-light rounded-pill fw-bold" id="play_game">Start</button> 
+    </div>
     <div id="container"></div>
     <div class="container" id="keyboard"></div>
-    <h1 id = "current_mode"> Single Player Mode</h1>
     <div id="win" class="popup">
       <h2>YOU HAVE WON!</h2>
       <button id="closebutton">Close</button>
@@ -85,14 +88,13 @@
 
 
 
-        h1{
-          position: absolute;
-          left:100px;
-          top:50px;
-          color:blue;
-        }
+        /* h1{
+          position: relative;
+          top:10%;
+          left:10%;
+        } */
 
-        #play_game {
+        /* #play_game {
           position: absolute;
           left:100px;
           top:120px;
@@ -101,7 +103,7 @@
           height: 35px;
           width: 55px;
           border: 3px solid grey;
-        }
+        } */
         :root {
           --grid-col: 1;
           --grid-row: 1;
@@ -188,9 +190,8 @@
               </div>
           </div>
       </div>
-  </div>
-  <button type="button" id="play_game">Play</button> 
-  <button class="button btn-dark" data-toggle="modal" data-target="#Rules">Open Rules</div>
+  </div> 
+  <button class="btn-light fw-bold border border-0 rounded alt position-absolute top-0 end-0" data-toggle="modal" data-target="#Rules">Open Rules</button>
     <!-- <div>
         <button  class="button btn-light" id="return" type="submit">Return</button>
     </div> -->

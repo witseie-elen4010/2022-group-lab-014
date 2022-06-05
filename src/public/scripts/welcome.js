@@ -38,6 +38,6 @@ function displayName () {
   const currUser = window.localStorage.getItem('username')
   const name = 'Welcome, ' + currUser + ', you have played ' + String(played) + ' games in your career'
   const text = document.createTextNode(name)
-  heading.appendChild(text).className = ' display-1 position-relative text-white text-center'
+  heading.appendChild(text).className = 'display-1 position-relative text-white text-center justify-content-center'
   header.appendChild(heading)
 }

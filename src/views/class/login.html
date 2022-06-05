@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="/cdn/css/bootstrap.min.css">
 </head>
 
-<body class="bg-info text-white">
-    <h1 class="display-1 position-relative text-white text-center">Welcome to Wordie!</h1>
-    <h3 class="display-8 position-relative text-white text-center">Please enter your username below</h3>
+<body class="bg-dark text-secondary">
+    <h1 class="display-1 position-relative text-secondary text-center">welcome to wordie</h1>
+    <h3 class="display-8 position-relative text-white text-center">enter your username below</h3>
     <form action="api/database" method="post">
-        <div class="d-grid gap-5 p5 col-6 mx-auto">
-            <input type="text" id="user" name="user" placeholder="Username"/>
+        <div class="d-grid gap-5 p-4 col-4 mx-auto">
+            <input type="text" id="user" name="user" placeholder="username"/>
         </div>
-        <div class="d-grid gap-3 p5 col-6 mx-auto">
-            <button class="btn btn-primary btn-block btn-lg" type="Submit" id="enter">Enter</button>
+        <div class="d-grid gap-5 p-4 col-4 mx-auto">
+            <button class="btn btn-dark btn-block btn-lg rounded-pill border border-3 border-secondary" type="Submit" id="enter">enter</button>
         </div>
     </form>
 </body>

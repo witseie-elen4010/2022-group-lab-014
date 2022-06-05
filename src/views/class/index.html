@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
     <link rel="stylesheet" href="/cdn/css/bootstrap.min.css">
 </head>
-<body class="bg-info text-white">
+<body class="bg-dark text-white">
     <style>
         .my-heading-row{
             background-color: grey;
@@ -24,20 +24,20 @@
         } 
     </style> 
 
-    <div class="d-grid gap-5 p-5 col-6 mx-auto" id="header">
-        <h1 class=" display-1 position-relative text-white text-center" id="heading">Wordie</h1>
+    <div class="d-grid gap-4 p-6 col-6 mx-auto" id="header">
+        <h1 class="display-1 position-relative text-secondary text-center justify headings-font-family: monospace Menlo" id="heading">wordie</h1>
     </div>
 
-    <div class="d-grid gap-5 p-5 col-6 mx-auto" id="singlePlayer">
-        <button  type="submit" id="login" class="btn btn-primary btn-block btn-lg">Click here to log in</button>
+    <div class="d-grid gap-4 p-4 col-4 mx-auto" id="singlePlayer">
+        <button  type="submit" id="login" class="btn btn-dark btn-block btn-lg border border-3 border-light rounded-pill fw-bold">log in</button>
     </div>
 
-    <div class="d-grid gap-5 p-5 col-6 mx-auto" id="singlePlayer">    
-        <button type="submit" id="singlePlayButton" class="btn btn-primary btn-block btn-lg">Single Player</button> 
+    <div class="d-grid gap-4 p-4 col-4 mx-auto" id="singlePlayer">    
+        <button type="submit" id="singlePlayButton" class="btn btn-dark btn-block btn-lg border border-3 border-light rounded-pill fw-bold">single player</button> 
     </div>
 
-    <div class="d-grid gap-3 p-5 col-6 mx-auto " id="multiPlayer">
-        <button type="submit" id="multiPlayButton" class="btn btn-primary btn-block btn-lg">Multiplayer</button> 
+    <div class="d-grid gap-4 p-4 col-4 mx-auto " id="multiPlayer">
+        <button type="submit" id="multiPlayButton" class="btn btn-dark btn-block btn-lg border border-3 border-light rounded-pill fw-bold">multiplayer</button> 
     </div>
 
     <div class="modalContainer text-black">
@@ -47,8 +47,6 @@
                 <div class="modal-dialog">
                     <div class="modal-content modal-xl">
                         <div class="modal-header">  
-                            <!-- put in fluid to change with screen size -->
-                            <!-- <div class="row  my-heading-row"><h3>How To Play</h3></div> -->
                             <div class="row my-heading-row"><div class="col-8 col-justify-content"><h2>How To Play</h2></div></div>
                         </div>    
                         <div class="modal-body">
@@ -87,7 +85,7 @@
         </div>
     </div>
 
-    <button class="button btn-dark" data-toggle="modal" data-target="#Rules">Open Rules</div>
+    <button class="btn-light fw-bold border border-0 rounded alt position-absolute top-0 end-0" data-toggle="modal" data-target="#Rules">Open Rules</div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
