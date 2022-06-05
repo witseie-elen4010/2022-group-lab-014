@@ -8,6 +8,7 @@
     const numCells=row*col;
     for (i = 0; i < numCells; i++) {
       let cell = document.createElement("div");
+      cell.setAttribute('id', 'opp1Cell' + i)
       container1.appendChild(cell).className = 'opp1Grid-item';
     };
   };
@@ -18,6 +19,7 @@
     const numCells=row*col;
     for (i = 0; i < numCells; i++) {
       let cell = document.createElement("div");
+      cell.setAttribute('id', 'opp2Cell' + i)
       container2.appendChild(cell).className = 'opp2Grid-item';
     };
   };
@@ -39,23 +41,73 @@ hOpponent1.style.display = 'none'
 hOpponent2.style.display = 'none'
 hsingle.style.display = 'none'
 
-// let word=getElementById(id='word')
-// fetch('/api/fetchGuessWord')
-//     .then(function (response) {
-//       if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
-//     })
-//     .then(function (data) {
-//       word = data
-//     })
-//     .catch(function (e) {
-//       console.log(e)
-//     })
     
     if (num_of_players==3){
+      makeRows(6, 5);
         makeRows2(6, 5);
-        makeRows(6, 5);
         hOpponent1.style.display = 'initial'
         hOpponent2.style.display = 'initial'
         hsingle.style.display = 'none'
       }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const refresh=document.getElementById('refresh')
+
+refresh.addEventListener('click', function () {
+
+  changeColour1() 
+  changeColour2() 
+
+
+},false)
+
+function changeColour1() {
+  fetch('/api/sendColour2')
+    .then(function (response) {
+      if (response.ok) { return response.json() } else { throw 'Failed to fetch' }
+    })
+    .then(function (data) {
+      for (let i = 0; i<30; i++) {
+        const cell = document.getElementById('opp1Cell' + i)
+        cell.className = data[i]
+        
+        
+      }
+    })
+    .catch(function (e) {
+      console.log(e)
+    })
+  }
+function changeColour2() {
+  fetch('/api/sendColour1')
+    .then(function (response) {
+      if (response.ok) { return response.json() } else { throw 'Failed to fetch' }
+    })
+    .then(function (data) {
+      for (let i = 0; i<30; i++) {
+        let cell = document.getElementById('opp2Cell' + i)
+        let newClass = data[i]
+        newClass = newClass.replace('opp2Grid-item', 'opp1Grid-item')
+        cell.className = newClass
+        
+      }
+    })
+    .catch(function (e) {
+      console.log(e)
+    })
+}
+    

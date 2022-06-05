@@ -263,7 +263,7 @@ const container = document.getElementById("container");
     makeKeyboard(thirdRowKeys)
     KeysInGrid(RowOfKeys, cellCount)
     makeRows2(6, 5);
-    while(answer.length===0){
+    //while(answer.length===0){
 
         fetch('/api/fetchGuessWord')
           .then(function (response) {
@@ -272,12 +272,13 @@ const container = document.getElementById("container");
           .then(function (data) {
             answer = data
             copyAnswer = answer
+            console.log(answer)
           })
           .catch(function (e) {
             console.log(e)
             // alert(e)
           })
-    }
+    //}
     fetch('/api/isValid')
       .then(function (response) {
         if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
