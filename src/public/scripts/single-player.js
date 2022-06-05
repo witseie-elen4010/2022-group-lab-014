@@ -79,7 +79,7 @@ function KeysInGrid (KeyRow, cellCount) {
               }
             }
           }
-        } else if (inKey.innerHTML === 'DELETE' && cellCount > 0) {
+        } else if (inKey.innerHTML === 'DELETE' && inWord.length !==0) {
           cellCount = cellCount - 1
           document.getElementById('cell' + cellCount).innerHTML = ''
           inWord = inWord.slice(0, -1)
@@ -94,37 +94,6 @@ function isValid (word) {
   return allValid.includes(word.toLowerCase())
 }
 let chances = 0
-
-// function letterToGreen (word, copyAnswer, row) {
-//   for (let i = 0; i < 5; i++) {
-//     if (word[i] === copyAnswer[i]) {
-//       const cell = document.getElementById('cell' + (i + 5 * row))
-//       cell.className = 'gameGrid-item bg-success'
-//       const key = document.getElementById(word[i].toUpperCase())
-//       key.className = 'col-sm btn btn-success btn btn-outline-dark'
-//       copyAnswer = copyAnswer.replace(copyAnswer[i], '0')
-//     }
-//   }
-// }
-
-// function letterToOrange (word, copyAnswer, cell, i) {
-//   cell.className = 'gameGrid-item bg-warning'
-//   const key = document.getElementById(word[i].toUpperCase())
-//   if (key.className !== 'col-sm btn btn-success btn btn-outline-dark') {
-//     key.className = 'col-sm btn btn-warning btn btn-outline-dark'
-//   }
-//   copyAnswer = copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])], '0')
-// }
-
-// function letterToGrey (word, copyAnswer, cell, i) {
-//   cell.className = 'gameGrid-item bg-secondary'
-//   const key = document.getElementById(word[i].toUpperCase())
-//   if (key.className !== 'col-sm btn btn-success btn btn-outline-dark') {
-//     key.className = 'col-sm btn btn-secondary btn btn-outline-dark'
-//   }
-//   copyAnswer = copyAnswer.replace(copyAnswer[copyAnswer.indexOf(word[i])], '0')
-// }
-
 function checkRight (word, row) {
   copyAnswer = answer
   word = word.toLowerCase()
