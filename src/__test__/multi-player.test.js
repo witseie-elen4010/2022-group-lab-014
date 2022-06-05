@@ -44,4 +44,22 @@ describe('When Requests to multiplayer api\'s ', () => {
     // a length of 2
     expect(answer.text.length).toBe(2)
   })
+
+  it('api/sendColour1 returns an array', async () => {
+    const answer = await request(app).get('/api/sendColour1')
+    expect(answer.statusCode).toBe(200)
+    expect(answer.header['content-type']).toBe('application/json; charset=utf-8')
+    // An array with 30 items of 'opp2Grid-item' on initial load 
+    expect(answer.body.length).toBe(30)
+    expect(answer.body.filter((v) => (v === 'opp2Grid-item')).length).toBe(30)
+  })
+
+  it('api/sendColour2 returns an array', async () => {
+    const answer = await request(app).get('/api/sendColour2')
+    expect(answer.statusCode).toBe(200)
+    expect(answer.header['content-type']).toBe('application/json; charset=utf-8')
+    // An array with 30 items of 'opp2Grid-item' on initial load
+    expect(answer.body.length).toBe(30)
+    expect(answer.body.filter((v) => (v === 'opp2Grid-item')).length).toBe(30)
+  })
 })

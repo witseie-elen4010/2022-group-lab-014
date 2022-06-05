@@ -10,7 +10,7 @@ const container = document.getElementById("container");
       let cell = document.createElement("div");
       cell.setAttribute('id', 'cell'+i)
 
-      container.appendChild(cell).className = 'opp1Grid-item';
+      container.appendChild(cell).className = 'gameGrid-item';
     };
   };
 
@@ -20,6 +20,7 @@ const container = document.getElementById("container");
     const numCells=row*col;
     for (i = 0; i < numCells; i++) {
       let cell = document.createElement("div");
+      cell.setAttribute('id', 'oppCell' + i)
       container2.appendChild(cell).className = 'opp2Grid-item';
     };
   };
@@ -51,6 +52,7 @@ const container = document.getElementById("container");
       for (const element of KeyRow[count]) {
         const inKey = document.getElementById(element)
         inKey.addEventListener('click', function () {
+          changeColour()
           if ((inKey.innerHTML !== 'DELETE')) {
             if (Math.floor(cellCount / 5) === currentRow && inKey.innerHTML !== 'ENTER') {
               const cell = document.getElementById('cell' + (cellCount))
@@ -63,6 +65,7 @@ const container = document.getElementById("container");
                   checkRight(inWord, currentRow)
                   inWord = ''
                   currentRow += 1
+                  sendColours()
                 } else {
                   alert('Your word is invalid.')
                 }
@@ -284,3 +287,101 @@ const container = document.getElementById("container");
         // alert(e)
       })
   }
+
+let oppColour = []
+
+let index = -1
+
+fetch('/api/multiUsers')
+  .then(function (response) {
+    if (response.ok) { return response.json() } else { throw 'Failed to fetch' }
+  })
+  .then(function (data) {
+    index = data.indexOf(window.localStorage.getItem('username'))
+  })
+  .catch(function (e) {
+    console.log(e)
+  })
+
+function sendColours() {
+  let colourArr = []
+  for (let i=0; i<30; i++) {
+    const cell = document.getElementById('cell' + i)
+    const name = cell.className
+    const newName = name.replace('gameGrid-item', 'opp2Grid-item')
+    colourArr.push(newName)
+  }
+  const jsonCol = {
+    colours: colourArr
+  }
+  if (index === 0) {
+    fetch('/api/fetchColour1', {
+      method: 'post',//specify method to use
+      headers: {//headers to specify the type of data needed
+              'Content-Type': 'application/json'
+          },
+      body: JSON.stringify(jsonCol)
+    }) // fill body of request. Here the data is a JSON object })
+    .then(function(response) {
+      if(response.ok)
+      return response.json(); // Return the response parse as JSON if code is valid else
+      throw 'Failed!'
+    })
+    .catch(function (e) { // Process error for request
+      alert(e) // Displays a browser alert with the error message. // This will be the string thrown in line 7 IF the
+        // response code is the reason for jumping to this
+        // catch() function.
+    })
+  } else if (index === 1) {
+    fetch('/api/fetchColour2', {
+      method: 'post',//specify method to use
+      headers: {//headers to specify the type of data needed
+              'Content-Type': 'application/json'
+          },
+      body: JSON.stringify(jsonCol)
+    }) // fill body of request. Here the data is a JSON object })
+    .then(function(response) {
+      if(response.ok)
+      return response.json(); // Return the response parse as JSON if code is valid else
+      throw 'Failed!'
+    })
+    .catch(function (e) { // Process error for request
+      alert(e) // Displays a browser alert with the error message. // This will be the string thrown in line 7 IF the
+        // response code is the reason for jumping to this
+        // catch() function.
+    })
+  }
+}
+
+function changeColour() {
+  if (index === 0) {
+    fetch('/api/sendColour2')
+      .then(function (response) {
+        if (response.ok) { return response.json() } else { throw 'Failed to fetch' }
+      })
+      .then(function (data) {
+        for (let i = 0; i<30; i++) {
+          const cell = document.getElementById('oppCell' + i)
+          cell.className = data[i]
+          console.log(data)
+        }
+      })
+      .catch(function (e) {
+        console.log(e)
+      })
+  } else if (index === 1) {
+    fetch('/api/sendColour1')
+      .then(function (response) {
+        if (response.ok) { return response.json() } else { throw 'Failed to fetch' }
+      })
+      .then(function (data) {
+        for (let i = 0; i<30; i++) {
+          const cell = document.getElementById('oppCell' + i)
+          cell.className = data[i]
+        }
+      })
+      .catch(function (e) {
+        console.log(e)
+      })
+  }
+}
