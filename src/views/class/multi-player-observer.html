@@ -8,19 +8,46 @@
     <button class="btn btn-primary btn-block btn-lg" type="Submit" id="refresh" name="refresh">REFRESH GRID COLOURS</button>
   </div>
 
-  <h2 id="hOpponent1">Opponent 1:</h2>
-  <h2 id="hOpponent2" >Opponent 2:</h2> 
-  <h2 id="hsingle">Opponent 1:</h2> 
+  <h2 id="hOpponent1"></h2>
+  <h2 id="hOpponent2"></h2> 
 
     <link rel="stylesheet" href="/cdn/css/bootstrap.min.css">
-
 </head>
 <body>
   <div id="container1"></div>
   <div id="container2"></div>
   <div id="container3"></div>
+  <div id="gameover" class="popup">
+    <button id="closebutton">Close</button>
+  </div>
   <style>
-
+    .popup{
+      background-color: black;
+      color:white;
+      width: 496px;
+      height: 500px;
+      padding: 30px 40px;
+      position: absolute;
+      transform: translate(-50%,-70%); 
+      left: 50%;
+      top: 50%;
+      border-radius: 8px;
+      display: none;
+      font-family: "Poppins",sans-serif;
+      text-align: center;
+  }
+  .closebutton{
+      display: block;
+      position:relative;
+      background-color: white;
+      font-size: 30px;
+      color: black;
+      width: 40px;
+      height: 40px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+  }
        #current_mode{
           position: absolute;
           left:570px;
@@ -28,8 +55,8 @@
           color:blue;
         }
         #refresh{
-          position: relative;
-          left:650px;
+          position: absolute;
+          right:150px;
           top:50px;
           color:white;
           background-color: black;
@@ -47,13 +74,7 @@
           top:150px;
           color:rgb(0, 16, 139);
         }
-        #hsingle{
-          position: absolute;
-          left: 660px;
-          top:150px;
-          color:rgb(0, 16, 139);
-        }
-
+    
       body{
         background-color: cornflowerblue;
       }
@@ -87,7 +108,7 @@
       }
       #container1 {
           position: fixed;
-          right: 400px;
+          right: 225px;
           top: 250px;
           height: 396px;
           width:330x;
@@ -98,7 +119,7 @@
 }
       #container2 {
           position: fixed;
-          right: 1050px;
+          right: 875px;
           top: 250px;
           height: 396px;
           width:330x;

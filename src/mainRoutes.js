@@ -3,7 +3,7 @@ const express = require('express')
 const mainRouter = express.Router()
 const dict = require('./dictionary.js')
 const db = require('./db.js')
-let guessWord1=''
+let guessWord1 = ''
 const lobbycode = require('./code.js')
 
 const userdetails = {
@@ -12,7 +12,7 @@ const userdetails = {
   games_won: 0
 }
 
-const multiPlayerUsers = []
+let multiPlayerUsers = []
 
 const code = lobbycode.gameCode(Math.floor(Math.random() * 4))
 let userIn = 0
@@ -61,7 +61,7 @@ mainRouter.get('/setWord', function (req, res) {
 
 mainRouter.get('/api/answer', function (req, res) {
   let date = new Date()
-  date.setHours(0,0,0,0)
+  date.setHours(0, 0, 0, 0)
   date = parseInt(date / 1000)
   res.send(JSON.stringify([dict.todayWord(Math.floor(date % 2309))]))
 })
@@ -187,6 +187,45 @@ mainRouter.post('/api/fetchColour2', function (req, res) {
 
 mainRouter.get('/api/sendColour2', function (req, res) {
   res.send(colArr2)
+})
+
+let guesses = []
+
+mainRouter.post('/api/postLogs', function (req, res) {
+  guesses.push(req.body)
+})
+
+mainRouter.get('/api/getLogs', function (req, res) {
+  res.send(guesses)
+})
+
+let iswin1 = 'false'
+
+mainRouter.post('/api/postWin1', function (req, res) {
+  iswin1 = req.body.wins
+})
+
+mainRouter.get('/api/getWin1', function (req, res) {
+  res.send(iswin1)
+})
+
+let iswin2 = 'false'
+
+mainRouter.post('/api/postWin2', function (req, res) {
+  iswin2 = req.body.wins
+})
+
+mainRouter.get('/api/getWin2', function (req, res) {
+  res.send(iswin2)
+})
+
+mainRouter.post('/api/clearAll', function (req, res) {
+  multiPlayerUsers = []
+  guesses = []
+  iswin1 = 'false'
+  iswin2 = 'false'
+  colArr1 = Array(30).fill('opp2Grid-item')
+  colArr2 = Array(30).fill('opp2Grid-item')
 })
 
 module.exports = mainRouter
