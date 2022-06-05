@@ -44,6 +44,7 @@ function KeysInGrid (KeyRow, cellCount) {
             cell.innerHTML = inKey.innerHTML
             cellCount = cellCount + 1
             inWord += inKey.innerHTML
+          
           } else if (inKey.innerHTML === 'ENTER' && cellCount % 5 === 0) {
             if (Math.floor(cellCount / 5) !== currentRow) {
               if (isValid(inWord)) {
@@ -84,6 +85,7 @@ function KeysInGrid (KeyRow, cellCount) {
           document.getElementById('cell' + cellCount).innerHTML = ''
           inWord = inWord.slice(0, -1)
         }
+        
       }, false)
     }
     count = count + 1
@@ -93,7 +95,7 @@ function KeysInGrid (KeyRow, cellCount) {
         if ((event.key !== 'Backspace')) {
           if (Math.floor(cellCount / 5) === currentRow && event.key!== 'Enter') {
             const cell = document.getElementById('cell' + (cellCount))
-            cell.innerHTML = event.key
+            cell.innerHTML = event.key.toUpperCase()
             cellCount = cellCount + 1
             inWord += event.key
           } else if (event.key === 'Enter' && cellCount % 5 === 0) {
@@ -121,7 +123,7 @@ function KeysInGrid (KeyRow, cellCount) {
                 const guess = {
                   "username": window.localStorage.getItem('username'),
                   "guess": inWord,
-                  "validGuess": "valid",
+                  "validGuess": "invalid",
                   "time": currTime.toLocaleString()
                 }
 
