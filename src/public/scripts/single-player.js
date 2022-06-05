@@ -88,7 +88,7 @@ function KeysInGrid (KeyRow, cellCount) {
     }
     count = count + 1
   }
-      document.addEventListener('keypress', function(event) {
+      document.addEventListener('keydown', function(event) {
 
         if ((event.key !== 'Backspace')) {
           if (Math.floor(cellCount / 5) === currentRow && event.key!== 'Enter') {
