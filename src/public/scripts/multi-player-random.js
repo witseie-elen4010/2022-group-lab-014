@@ -282,9 +282,9 @@ fetch('/api/multiUsers')
   .then(function (data) {
     index = data.indexOf(window.localStorage.getItem('username'))
 
-    if (index == 0) {
+    if (index === 0) {
       hOpponent.innerHTML = data[index + 1]
-    } else if (index == 1) {
+    } else if (index === 1) {
       hOpponent.innerHTML = data[index - 1]
     }
   })
