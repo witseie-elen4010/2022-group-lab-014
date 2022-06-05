@@ -17,9 +17,37 @@
   <div id="container1"></div>
   <div id="container2"></div>
   <div id="container3"></div>
-
+  <div id="gameover" class="popup">
+    <button id="closebutton">Close</button>
+  </div>
   <style>
-
+    .popup{
+      background-color: black;
+      color:white;
+      width: 496px;
+      height: 500px;
+      padding: 30px 40px;
+      position: absolute;
+      transform: translate(-50%,-70%); 
+      left: 50%;
+      top: 50%;
+      border-radius: 8px;
+      display: none;
+      font-family: "Poppins",sans-serif;
+      text-align: center;
+  }
+  .closebutton{
+      display: block;
+      position:relative;
+      background-color: white;
+      font-size: 30px;
+      color: black;
+      width: 40px;
+      height: 40px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+  }
        #current_mode{
           position: absolute;
           left:570px;

@@ -66,6 +66,8 @@ const refresh = document.getElementById('refresh')
 refresh.addEventListener('click', function () {
   changeColour1()
   changeColour2()
+  dispWinner1()
+  dispWinner2()
 }, false)
 
 function changeColour1 () {
@@ -98,5 +100,95 @@ function changeColour2 () {
     })
     .catch(function (e) {
       console.log(e)
+    })
+}
+
+function dispWinner1 () {
+  fetch('/api/getWin1')
+    .then(function (response) {
+      if (response.ok) { return response.json() } else { throw 'Failed to fetch' }
+    })
+    .then(function (data) {
+      if (data) {
+        document.querySelector('.popup').style.display = 'block'
+        const edDiv = document.getElementById('gameover')
+        const text = document.createElement('h4')
+        const msg = document.createTextNode(hOpponent1.innerHTML + ' is the winner')
+        text.appendChild(msg).className = 'display-1 position-relative text-white text-center'
+        edDiv.appendChild(text)
+        getLogs()
+      }
+    })
+    .catch(function (e) {
+      console.log(e)
+    })
+}
+
+function dispWinner2 () {
+  fetch('/api/getWin2')
+    .then(function (response) {
+      if (response.ok) { return response.json() } else { throw 'Failed to fetch' }
+    })
+    .then(function (data) {
+      if (data) {
+        document.querySelector('.popup').style.display = 'block'
+        const edDiv = document.getElementById('gameover')
+        const text = document.createElement('h4')
+        const msg = document.createTextNode(hOpponent2.innerHTML + ' is the winner')
+        text.appendChild(msg).className = 'display-1 position-relative text-white text-center'
+        edDiv.appendChild(text)
+        getLogs()
+      }
+    })
+    .catch(function (e) {
+      console.log(e)
+    })
+}
+
+document.querySelector('#closebutton').addEventListener('click', function () {
+  document.querySelector('.popup').style.display = 'none'
+  clearAll()
+  window.location.replace('/')
+})
+
+function clearAll () {
+  const nothing = {}
+  fetch('/api/clearAll', {
+    method: 'post', // specify method to use
+    headers: { // headers to specify the type of data needed
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(nothing)
+  }) // fill body of request. Here the data is a JSON object })
+    .then(function (response) {
+      if (response.ok) { return response.json() } // Return the response parse as JSON if code is valid else
+      throw 'Failed!'
+    })
+    .catch(function (e) {
+      alert(e)
+    })
+}
+
+function getLogs () {
+  fetch('/api/getLogs')
+    .then(function (response) {
+      if (response.ok) { return response.json() } else { throw 'Failed to fetch' }
+    })
+    .then(function (data) {
+      data.forEach(element => {
+        console.log(element)
+        const loggedpopup = document.getElementById('gameover')
+        const par = document.createElement('p')
+        const data1 = element.username
+        const data2 = element.guess
+        const data3 = element.validGuess
+        const data4 = element.time
+        const text = document.createTextNode(data1 + ' ' + data2 + ' ' + data3 + ' ' + data4)
+        par.appendChild(text).className = 'display-1 position-relative text-white text-center'
+        loggedpopup.appendChild(par)
+      })
+    })
+    .catch(function (e) {
+      alert(e)
     })
 }

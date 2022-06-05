@@ -54,6 +54,7 @@ function KeysInGrid (KeyRow, cellCount) {
       const inKey = document.getElementById(element)
       inKey.addEventListener('click', function () {
         changeColour()
+        oppWon()
         if ((inKey.innerHTML !== 'DELETE')) {
           if (Math.floor(cellCount / 5) === currentRow && inKey.innerHTML !== 'ENTER') {
             const cell = document.getElementById('cell' + (cellCount))
@@ -64,10 +65,13 @@ function KeysInGrid (KeyRow, cellCount) {
             if (Math.floor(cellCount / 5) !== currentRow) {
               if (isValid(inWord)) {
                 checkRight(inWord, currentRow)
+
+                sendGuess('valid')
                 inWord = ''
                 currentRow += 1
                 sendColours()
               } else {
+                sendGuess('not valid')
                 alert('Your word is invalid.')
               }
             }
@@ -142,9 +146,6 @@ function checkRight (word, row) {
           games_played: played,
           games_won: won
         }
-
-        displayStreak1(won)
-
         fetch('/api/gamesWon', {
           method: 'post', // specify method to use
           headers: { // headers to specify the type of data needed
@@ -165,6 +166,13 @@ function checkRight (word, row) {
       .catch(function (e) {
         console.log(e)
       })
+    const edDiv = document.getElementById('gameover')
+    const text = document.createElement('h4')
+    const msg = document.createTextNode('You the winner')
+    text.appendChild(msg).className = 'display-1 position-relative text-white text-center'
+    edDiv.appendChild(text)
+    iwin()
+    getLogs()
   } else if (chances === 6) {
     document.querySelector('.popup2').style.display = 'block'
     fetch('/api/user')
@@ -182,7 +190,6 @@ function checkRight (word, row) {
           games_won: won
         }
 
-        displayStreak2(won)
         fetch('/api/gamesWon', {
           method: 'post', // specify method to use
           headers: { // headers to specify the type of data needed
@@ -206,28 +213,15 @@ function checkRight (word, row) {
   }
 }
 
-function displayStreak1 (num) {
-  const win = document.getElementById('win')
-  const heading = document.createElement('h3')
-  const name = 'you have won ' + String(num) + ' games in your career'
-  const text = document.createTextNode(name)
-  heading.appendChild(text).className = ' display-1 position-relative text-white text-center'
-  win.appendChild(heading)
-}
-function displayStreak2 (num) {
-  const lose = document.getElementById('lose')
-  const heading = document.createElement('h3')
-  const name = 'you have won ' + String(num) + ' games in your career'
-  const text = document.createTextNode(name)
-  heading.appendChild(text).className = ' display-1 position-relative text-white text-center'
-  lose.appendChild(heading)
-}
-
 document.querySelector('#closebutton').addEventListener('click', function () {
   document.querySelector('.popup').style.display = 'none'
+  clearAll()
+  window.location.replace('/')
 })
 document.querySelector('#closebutton2').addEventListener('click', function () {
   document.querySelector('.popup2').style.display = 'none'
+  clearAll()
+  window.location.replace('/')
 })
 
 const firstRowKeys = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
@@ -246,7 +240,7 @@ if (num_of_players == 2) {
   makeKeyboard(thirdRowKeys)
   KeysInGrid(RowOfKeys, cellCount)
   makeRows2(6, 5)
-  // while(answer.length===0){
+
   fetch('/api/fetchGuessWord')
     .then(function (response) {
       if (response.ok) { return response.json() } else { throw 'Failed to retrieve word: response code invalid!' }
@@ -376,4 +370,154 @@ function changeColour () {
         console.log(e)
       })
   }
+}
+
+function sendGuess (isvalid) {
+  const currTime = new Date()
+
+  const guess = {
+    username: window.localStorage.getItem('username'),
+    guess: inWord,
+    validGuess: isvalid,
+    time: currTime.toLocaleString()
+  }
+
+  console.log(guess)
+
+  fetch('/api/postLogs', {
+    method: 'post', // specify method to use
+    headers: { // headers to specify the type of data needed
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(guess)
+  }) // fill body of request. Here the data is a JSON object })
+    .then(function (response) {
+      if (response.ok) { return response.json() } // Return the response parse as JSON if code is valid else
+      throw 'Failed!'
+    })
+    .catch(function (e) {
+      alert(e)
+    })
+}
+
+function getLogs () {
+  fetch('/api/getLogs')
+    .then(function (response) {
+      if (response.ok) { return response.json() } else { throw 'Failed to fetch' }
+    })
+    .then(function (data) {
+      data.forEach(element => {
+        console.log(element)
+        const loggedpopup = document.getElementById('gameover')
+        const par = document.createElement('p')
+        const data1 = element.username
+        const data2 = element.guess
+        const data3 = element.validGuess
+        const data4 = element.time
+        const text = document.createTextNode(data1 + ' ' + data2 + ' ' + data3 + ' ' + data4)
+        par.appendChild(text).className = 'display-1 position-relative text-white text-center'
+        loggedpopup.appendChild(par)
+      })
+    })
+    .catch(function (e) {
+      alert(e)
+    })
+}
+
+function iwin () {
+  const winner = {
+    wins: 'true'
+  }
+  if (index === 1) {
+    fetch('/api/postWin1', {
+      method: 'post', // specify method to use
+      headers: { // headers to specify the type of data needed
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(winner)
+    }) // fill body of request. Here the data is a JSON object })
+      .then(function (response) {
+        if (response.ok) { return response.json() } // Return the response parse as JSON if code is valid else
+        throw 'Failed!'
+      })
+      .catch(function (e) {
+        alert(e)
+      })
+  } else if (index === 2) {
+    fetch('/api/postWin2', {
+      method: 'post', // specify method to use
+      headers: { // headers to specify the type of data needed
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(winner)
+    }) // fill body of request. Here the data is a JSON object })
+      .then(function (response) {
+        if (response.ok) { return response.json() } // Return the response parse as JSON if code is valid else
+        throw 'Failed!'
+      })
+      .catch(function (e) {
+        alert(e)
+      })
+  }
+}
+
+function oppWon () {
+  if (index === 1) {
+    fetch('/api/getWin2')
+      .then(function (response) {
+        if (response.ok) { return response.json() } else { throw 'Failed to fetch' }
+      })
+      .then(function (data) {
+        if (data) {
+          document.querySelector('.popup').style.display = 'block'
+          const edDiv = document.getElementById('gameover')
+          const text = document.createElement('h4')
+          const msg = document.createTextNode('You the loser')
+          text.appendChild(msg).className = 'display-1 position-relative text-white text-center'
+          edDiv.appendChild(text)
+          getLogs()
+        }
+      })
+      .catch(function (e) {
+        alert(e)
+      })
+  } else if (index === 2) {
+    fetch('/api/getWin1')
+      .then(function (response) {
+        if (response.ok) { return response.json() } else { throw 'Failed to fetch' }
+      })
+      .then(function (data) {
+        console.log(data)
+        if (data) {
+          document.querySelector('.popup').style.display = 'block'
+          const edDiv = document.getElementById('gameover')
+          const text = document.createElement('h4')
+          const msg = document.createTextNode('You the loser')
+          text.appendChild(msg).className = 'display-1 position-relative text-white text-center'
+          edDiv.appendChild(text)
+          getLogs()
+        }
+      })
+      .catch(function (e) {
+        alert(e)
+      })
+  }
+}
+
+function clearAll () {
+  const nothing = {}
+  fetch('/api/clearAll', {
+    method: 'post', // specify method to use
+    headers: { // headers to specify the type of data needed
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(nothing)
+  }) // fill body of request. Here the data is a JSON object })
+    .then(function (response) {
+      if (response.ok) { return response.json() } // Return the response parse as JSON if code is valid else
+      throw 'Failed!'
+    })
+    .catch(function (e) {
+      alert(e)
+    })
 }
