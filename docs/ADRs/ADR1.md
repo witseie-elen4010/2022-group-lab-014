@@ -3,7 +3,7 @@
 ## Context
  Environment variables must be used so that developers' information (usernames and passwords) is not leaked on GitHub.
 
-## Decicions
+## Decisions
 - The Azure database is a SQL database which has been chosen for the architecture of this application. It can be monitored on the developer's Azure portals.
 - The database consists of the following columns:
     - username

@@ -4,7 +4,7 @@
 
 Testing is conducted to ensure code is working correctly and as desired. It is necessary to be creative when conducting front-end tests.
 
-## Decicions
+## Decisions
 - Unit testing is conducted on modules with exported functions
 - The supertest framework is used to conduct testing on API's
 - API's are tested for the following things:

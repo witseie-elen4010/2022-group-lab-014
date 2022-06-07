@@ -3,7 +3,7 @@
 ## Context
 Styling is important for the users to be visually attracted to the web page.
 
-## Decicions
+## Decisions
 - Bootstrap CSS is used in majority of situations.
 - If specific styling is required for a specific HTML item, custom css styling is used.
 
